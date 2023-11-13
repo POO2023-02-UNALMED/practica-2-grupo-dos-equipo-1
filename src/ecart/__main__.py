@@ -1,0 +1,3 @@
+import ecart
+
+ecart.main()
