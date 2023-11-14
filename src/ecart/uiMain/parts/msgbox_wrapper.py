@@ -7,8 +7,10 @@ class MsgboxWrapper():
    @classmethod
    def show(cls, message_type, message, parent = None) -> Any:
       if message_type == "w":
-         return messagebox.showwarning("Warning", message, parent=parent)
+         return messagebox.showwarning("Advertencia", message, parent=parent)
       elif message_type == "i":
-         return messagebox.showinfo("Info", message, parent=parent)
+         return messagebox.showinfo("Información", message, parent=parent)
       elif message_type == "aq":
-         return messagebox.askquestion("Ask Question", message, parent=parent)
+         return messagebox.askquestion("Pregunta", message, parent=parent)
+      elif message_type == "ay":
+         return messagebox.askyesno("Confirmación", message, parent=parent)
