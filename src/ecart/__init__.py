@@ -1,2 +1,10 @@
+from tkinter import Tk
+from ecart.uiMain.ventana_inicio import VentanaInicio
+
 def main() -> None:
-   print("hello world")
+   ROOT = Tk()
+   ROOT.geometry("1024x576")
+
+   VentanaInicio(ROOT, bg="lightblue").pack(fill="both", side="top", expand = True)
+
+   ROOT.mainloop()
