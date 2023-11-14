@@ -97,14 +97,14 @@ siguientes funcionalidades:
          "santiago": Author("Santiago", "3", "Desarrollador de software apasionado")
       }
 
-      # names = Utils.iterate_inf(authors.keys())
+      names = Utils.iterate_inf(authors.keys())
       biographies = Utils.iterate_inf(authors.values())
    
       # (P5) Authors biographies
       biography_frame = Utils._build_frame(p2)
       biography_frame.pack(side="top", padx=10, pady=10, fill="x")
 
-      current_biography = "hello"
+      current_biography = ""
 
       biography_display = Utils._build_label(biography_frame, text=current_biography)
       biography_display.pack(expand=True, fill="x", padx=10, pady=10)
@@ -124,6 +124,61 @@ siguientes funcionalidades:
 
       set_next_biography()
       biography_display.bind("<Button-1>", lambda _: set_next_biography())
+
+
+      # (P6) Authors images
+      p6 = Utils._build_frame(p2)
+      p6.pack(side="bottom", expand=True, padx=10, pady=10, fill="both")
+
+      images_frame = tk.Frame(p6)
+      images_frame.pack(side="top", expand=True, fill="both")
+
+      current_path = "/home/pocco81/Documents/uni/poo/practica-2/src/ecart/images/authors/angel/profile1.png"
+      current_image = tk.PhotoImage(file=current_path)
+
+      image_displays = []
+      image_displays[0] = tk.Label(images_frame, text="hello")
+      image_displays[1] = tk.Label(images_frame, text="hello")
+      image_displays[2] = tk.Label(images_frame, text="hello")
+      image_displays[3] = tk.Label(images_frame, text="hello")
+
+      # current_images = [tk.PhotoImage(file=img_path) for img_path in Utils.get_images("authors", next(names))]
+      # current_pics = Utils.get_images("authors", next(names))
+      # images_displays = [tk.Label(images_frame, text="hello", image=image_) for image_ in current_images]
+
+      # images_displays[0].grid(row=0, column=0, padx=(5,0), pady=(5,0), sticky="nsew")
+      # images_displays[1].grid(row=0, column=1, padx=(0,5), pady=(5,0), sticky="nsew")
+      # images_displays[2].grid(row=1, column=0, padx=(5,0), pady=(0,5), sticky="nsew")
+      # images_displays[3].grid(row=1, column=1, padx=(0,5), pady=(0,5), sticky="nsew")
+
+      # make each row and column expand
+      images_frame.grid_rowconfigure(0, weight=1)
+      images_frame.grid_rowconfigure(1, weight=1)
+      images_frame.grid_columnconfigure(0, weight=1)
+      images_frame.grid_columnconfigure(1, weight=1)
+
+      # image_displays = [[tk.Label(images_frame, image=image) for image in current_images[i*2:(i+1)*2]] for i in range(2)]
+      
+
+      # for i, row in enumerate(image_displays):
+      #    for j, label in enumerate(row):
+      #       label.grid(row=i, column=j, padx=5, pady=5, sticky="nsew")
+
+
+      # def set_next_images():
+      #    current_images = [tk.PhotoImage(file=img_path) for img_path in Utils.get_images(next(names))]
+
+      # def set_next_images() -> None:
+      #
+      #    author_images = Utils.get_images_iterator("authors", next(names)) 
+      #    current_image = tk.PhotoImage()
+      #
+      #    for _, row in enumerate(image_displays):
+      #       for _, label in enumerate(row):
+      #          current_image.config(file=next(author_images))
+      #          label.config(image=current_image)
+      #
+      # set_next_images()
 
    def configure_left_frameholder(self):
 

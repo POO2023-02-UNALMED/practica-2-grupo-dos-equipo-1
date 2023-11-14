@@ -43,7 +43,7 @@ class Utils:
       return module_path
 
    @staticmethod
-   def get_images_iterator(*source_path) -> Iterator:
+   def get_images(*source_path) -> list:
 
       source_dir = os.path.join(Utils.get_module_rootdir(), "ecart", "images", *source_path)
 
@@ -55,4 +55,8 @@ class Utils:
          if os.path.isfile(f_path):
             files.append(f_path)
 
-      return Utils.iterate_inf(files)
+      return files
+
+   @staticmethod
+   def get_images_iterator(*source_path) -> Iterator:
+      return Utils.iterate_inf(Utils.get_images(*source_path))
