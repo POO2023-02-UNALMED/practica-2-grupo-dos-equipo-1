@@ -1,6 +1,4 @@
 import tkinter as tk
-import os, sys
-from tkinter import font
 from ecart.uiMain.parts.msgbox_wrapper import MsgboxWrapper as MB
 from ecart.uiMain.utils import Utils
 from ecart.uiMain.ventanas.principal import VentanaPrincipal
@@ -13,9 +11,6 @@ class VentanaInicio(tk.Frame):
       self.master: tk.Tk = master
       
       master.wm_title("Ecart - Inicio")
-
-      hello = os.path.join(Utils.get_module_rootdir(), "ecart", "images", "hello.png")
-      print(hello)
 
       self.configure_menubar()
       self.configure_right_frameholder()
@@ -37,20 +32,18 @@ class VentanaInicio(tk.Frame):
 
       system_description = Utils._build_label(tmp_frame,
       
-         text="""📃 Descripcion del sistema 📚
+         text=Utils.left_align("""📃 Descripcion del sistema 📚
+            Gracias a nutra interfaz intuitiva y funcionalidades avanzadas,
+            Ecart le permite establecer y personalizar sus propias tiendas
+            en línea, de manera sencilla y eficiente. Brindando las
+            siguientes funcionalidades:
 
-
-Gracias a nutra interfaz intuitiva y funcionalidades avanzadas,
-Ecart le permite establecer y personalizar sus propias tiendas
-en línea, de manera sencilla y eficiente. Brindando las
-siguientes funcionalidades:
-
-  1. Crear y administrar tiendas
-  2. Contratar personal
-  3. Hacer entregas
-  4. Sugerir productos
-  5. Gestionar ingresos
-"""
+              1. Crear y administrar tiendas
+              2. Contratar personal
+              3. Hacer entregas
+              4. Sugerir productos
+              5. Gestionar ingresos
+            """)
       )
 
       system_description.pack(expand=True, fill="both")
@@ -84,6 +77,7 @@ siguientes funcionalidades:
       p2 = Utils._build_frame(right_zone)
       p2.pack(expand=True, fill="both", padx=(5, 10), pady=10)
 
+
       class Author:
          def __init__(self, name, semester, info):
             self.name = name
@@ -99,7 +93,7 @@ siguientes funcionalidades:
 
       names = Utils.iterate_inf(authors.keys())
       biographies = Utils.iterate_inf(authors.values())
-   
+
       # (P5) Authors biographies
       biography_frame = Utils._build_frame(p2)
       biography_frame.pack(side="top", padx=10, pady=10, fill="x")
@@ -123,62 +117,39 @@ siguientes funcionalidades:
          )
 
       set_next_biography()
-      biography_display.bind("<Button-1>", lambda _: set_next_biography())
-
 
       # (P6) Authors images
       p6 = Utils._build_frame(p2)
       p6.pack(side="bottom", expand=True, padx=10, pady=10, fill="both")
 
       images_frame = tk.Frame(p6)
-      images_frame.pack(side="top", expand=True, fill="both")
+      images_frame.pack(expand=True)
 
-      current_path = "/home/pocco81/Documents/uni/poo/practica-2/src/ecart/images/authors/angel/profile1.png"
-      current_image = tk.PhotoImage(file=current_path)
+      self.current_images = [tk.PhotoImage(file=img_path) for img_path in Utils.get_images("authors", next(names))]
+      images_displays = [tk.Label(images_frame, text="hello", image=image) for image in self.current_images]
 
-      image_displays = []
-      image_displays[0] = tk.Label(images_frame, text="hello")
-      image_displays[1] = tk.Label(images_frame, text="hello")
-      image_displays[2] = tk.Label(images_frame, text="hello")
-      image_displays[3] = tk.Label(images_frame, text="hello")
+      for i, display in enumerate(images_displays):
+         row, col = divmod(i, 2)
+         display.grid(row=row, column=col, padx=(5, 0), pady=(5, 0), sticky="nsew")
 
-      # current_images = [tk.PhotoImage(file=img_path) for img_path in Utils.get_images("authors", next(names))]
-      # current_pics = Utils.get_images("authors", next(names))
-      # images_displays = [tk.Label(images_frame, text="hello", image=image_) for image_ in current_images]
+      # configure row and column weights to center the cluster
+      for i in range(2):
+         images_frame.grid_rowconfigure(i, weight=1)
+         images_frame.grid_columnconfigure(i, weight=1)
 
-      # images_displays[0].grid(row=0, column=0, padx=(5,0), pady=(5,0), sticky="nsew")
-      # images_displays[1].grid(row=0, column=1, padx=(0,5), pady=(5,0), sticky="nsew")
-      # images_displays[2].grid(row=1, column=0, padx=(5,0), pady=(0,5), sticky="nsew")
-      # images_displays[3].grid(row=1, column=1, padx=(0,5), pady=(0,5), sticky="nsew")
+      def set_next_images() -> None:
+         next_images = Utils.get_images("authors", next(names))
+         for i in range(4):
+            self.current_images[i].config(file=next_images[i])
 
-      # make each row and column expand
-      images_frame.grid_rowconfigure(0, weight=1)
-      images_frame.grid_rowconfigure(1, weight=1)
-      images_frame.grid_columnconfigure(0, weight=1)
-      images_frame.grid_columnconfigure(1, weight=1)
-
-      # image_displays = [[tk.Label(images_frame, image=image) for image in current_images[i*2:(i+1)*2]] for i in range(2)]
+      # putting it all together
       
+      def set_next_author() -> None:
+         set_next_biography()
+         set_next_images()
 
-      # for i, row in enumerate(image_displays):
-      #    for j, label in enumerate(row):
-      #       label.grid(row=i, column=j, padx=5, pady=5, sticky="nsew")
+      biography_display.bind("<Button-1>", lambda _: set_next_author())
 
-
-      # def set_next_images():
-      #    current_images = [tk.PhotoImage(file=img_path) for img_path in Utils.get_images(next(names))]
-
-      # def set_next_images() -> None:
-      #
-      #    author_images = Utils.get_images_iterator("authors", next(names)) 
-      #    current_image = tk.PhotoImage()
-      #
-      #    for _, row in enumerate(image_displays):
-      #       for _, label in enumerate(row):
-      #          current_image.config(file=next(author_images))
-      #          label.config(image=current_image)
-      #
-      # set_next_images()
 
    def configure_left_frameholder(self):
 
