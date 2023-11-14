@@ -1,5 +1,5 @@
 from tkinter import Tk
-from ecart.uiMain.ventana_inicio import VentanaInicio
+from ecart.uiMain.ventanas.inicio import VentanaInicio
 
 def main() -> None:
    ROOT = Tk()
