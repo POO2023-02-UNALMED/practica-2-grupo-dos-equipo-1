@@ -111,18 +111,10 @@ incluyendo sus mercancias, pedidos y personal"""
       self.project_images_frame = tk.Frame(self.p4)
       self.project_images_frame.pack(side="top", expand=True, fill="both")
 
-      def set_next_image() -> None:
-         next_image_path = \
-            Utils.get_image_path("project", next(project_images))
-         current_image.config(file=next_image_path)
+      project_images = Utils.get_images_iterator("project")
 
-      project_images = Utils.iterate_inf([
-         "analyzing.png",
-         "business.png",
-         "ecommerce.png",
-         "purchasing.png",
-         "shopping_cart.png"
-      ])
+      def set_next_image() -> None:
+         current_image.config(file=next(project_images))
 
       current_image = tk.PhotoImage()
       set_next_image()

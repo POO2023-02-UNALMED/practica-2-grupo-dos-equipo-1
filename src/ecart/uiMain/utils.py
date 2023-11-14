@@ -37,7 +37,17 @@ class Utils:
 
       return module_path
 
-   """gets the root directory of the current module"""
    @staticmethod
-   def get_image_path(*path_to_image) -> str:
-      return os.path.join(Utils.get_module_rootdir(), "ecart", "images", *path_to_image)
+   def get_images_iterator(*source_path) -> Any:
+
+      source_dir = os.path.join(Utils.get_module_rootdir(), "ecart", "images", *source_path)
+
+      files = []
+
+      for f in os.listdir(source_dir):
+         f_path = os.path.join(source_dir, f)
+
+         if os.path.isfile(f_path):
+            files.append(f_path)
+
+      return Utils.iterate_inf(files)
