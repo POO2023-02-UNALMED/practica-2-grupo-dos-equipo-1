@@ -1,6 +1,7 @@
 import tkinter as tk
 from typing import Any
 import os, sys
+from typing_extensions import Iterator
 
 
 # este archivo contiene clases abstractas con
@@ -22,9 +23,13 @@ class Utils:
 
    """Iterates infinately over a given list"""
    @staticmethod
-   def iterate_inf(l) -> Any:
+   def iterate_inf(l) -> Iterator:
       while True:
          for item in l: yield item
+
+   @staticmethod
+   def left_align(text):
+      return '\n'.join(line.lstrip() for line in text.split('\n'))
 
    """gets the root directory of the current module"""
    @staticmethod
@@ -38,7 +43,7 @@ class Utils:
       return module_path
 
    @staticmethod
-   def get_images_iterator(*source_path) -> Any:
+   def get_images_iterator(*source_path) -> Iterator:
 
       source_dir = os.path.join(Utils.get_module_rootdir(), "ecart", "images", *source_path)
 

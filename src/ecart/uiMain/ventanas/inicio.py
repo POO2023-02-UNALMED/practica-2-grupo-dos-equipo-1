@@ -1,5 +1,6 @@
 import tkinter as tk
 import os, sys
+from tkinter import font
 from ecart.uiMain.parts.msgbox_wrapper import MsgboxWrapper as MB
 from ecart.uiMain.utils import Utils
 from ecart.uiMain.ventanas.principal import VentanaPrincipal
@@ -75,7 +76,54 @@ siguientes funcionalidades:
       self.master.config(menu=menubar)
 
    def configure_right_frameholder(self):
-      pass
+
+      right_zone = tk.Frame(self)
+      right_zone.place(relx=0.5, relwidth=0.5, relheight=1)
+
+      # holds all the actual frames
+      p2 = Utils._build_frame(right_zone)
+      p2.pack(expand=True, fill="both", padx=(5, 10), pady=10)
+
+      class Author:
+         def __init__(self, name, semester, info):
+            self.name = name
+            self.semester = semester
+            self.info = info
+
+      authors = {
+         "angel": Author("Angel", "3", "Desarrollador de software apasionado"),
+         "sebastian": Author("Sebastian", "3", "Desarrollador de software apasionado"),
+         "rodrigo": Author("Rodrigo", "3", "Desarrollador de software apasionado"),
+         "santiago": Author("Santiago", "3", "Desarrollador de software apasionado")
+      }
+
+      # names = Utils.iterate_inf(authors.keys())
+      biographies = Utils.iterate_inf(authors.values())
+   
+      # (P5) Authors biographies
+      biography_frame = Utils._build_frame(p2)
+      biography_frame.pack(side="top", padx=10, pady=10, fill="x")
+
+      current_biography = "hello"
+
+      biography_display = Utils._build_label(biography_frame, text=current_biography)
+      biography_display.pack(expand=True, fill="x", padx=10, pady=10)
+
+      def set_next_biography() -> None:
+
+         author: Author = next(biographies)
+
+         biography_display.config(text=Utils.left_align(
+            f"""Hoja de Vida de los Autores
+            (haga click)
+
+            🗯️ Nombre: {author.name}
+            📙 Semestre: {author.semester}
+            📃 Informacion: {author.info}""")
+         )
+
+      set_next_biography()
+      biography_display.bind("<Button-1>", lambda _: set_next_biography())
 
    def configure_left_frameholder(self):
 
@@ -91,11 +139,12 @@ siguientes funcionalidades:
       p3.pack(side="top", padx=10, pady=10, fill="x")
 
       # no cambiar! hace que se vea mejor en la interfaz
-      welcome_message = Utils._build_label(p3,
-         text="""🛍️ Bienvenido a Ecart 👷
-Ecart le permite gestionar todo sobre sus negocioes,
-incluyendo sus mercancias, pedidos y personal"""
+      welcome_message = Utils._build_label(p3, text=Utils.left_align(
+         """🛍️ Bienvenido a Ecart 👷
+         Ecart le permite gestionar todo sobre sus negocioes,
+         incluyendo sus mercancias, pedidos y personal""")
       )
+
       welcome_message.pack(expand=True, fill="x", padx=10, pady=10)
 
       # project images area
@@ -112,11 +161,11 @@ incluyendo sus mercancias, pedidos y personal"""
       self.project_images_frame.pack(side="top", expand=True, fill="both")
 
       project_images = Utils.get_images_iterator("project")
+      current_image = tk.PhotoImage()
 
       def set_next_image() -> None:
          current_image.config(file=next(project_images))
 
-      current_image = tk.PhotoImage()
       set_next_image()
 
       image_display = tk.Label(self.project_images_frame, image=current_image)
