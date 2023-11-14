@@ -25,8 +25,39 @@ class VentanaInicio(tk.Frame):
       if should_exit:
          self.master.destroy()
 
-   def toggle_description(self) -> None:
-      pass
+   def show_description(self) -> None:
+      self.project_images_frame.destroy()
+      self.project_ingresar_button.destroy()
+
+      tmp_frame = tk.Frame(self.p4)
+      tmp_frame.pack(expand=True, fill="both")
+
+      system_description = Utils._build_label(tmp_frame,
+      
+         text="""📃 Descripcion del sistema 📚
+
+
+Gracias a nutra interfaz intuitiva y funcionalidades avanzadas,
+Ecart le permite establecer y personalizar sus propias tiendas
+en línea, de manera sencilla y eficiente. Brindando las
+siguientes funcionalidades:
+
+  1. Crear y administrar tiendas
+  2. Contratar personal
+  3. Hacer entregas
+  4. Sugerir productos
+  5. Gestionar ingresos
+"""
+      )
+
+      system_description.pack(expand=True, fill="both")
+
+      def _destroy() -> None:
+         tmp_frame.destroy()
+         self.configure_project_images()
+
+      regresar_button = tk.Button(tmp_frame, text="Regresar", command=_destroy)
+      regresar_button.pack(side="bottom", padx=10, pady=10)
 
    def configure_menubar(self) -> None:
 
@@ -37,7 +68,7 @@ class VentanaInicio(tk.Frame):
 
       inicio_menu.add_command(label="Salir", command=self.exit_program)
       inicio_menu.add_separator()
-      inicio_menu.add_command(label="Descripción", command=self.toggle_description)
+      inicio_menu.add_command(label="Descripción", command=self.show_description)
 
       self.master.config(menu=menubar)
 
@@ -104,8 +135,5 @@ incluyendo sus mercancias, pedidos y personal"""
          self.destroy() # destroy current frame
          VentanaPrincipal(self.master, bg="lightgreen").pack(fill="both", side="top", expand = True)
 
-      self.ingresar_button = tk.Button(self.p4, text="Ingresar", command=ingresar)
-      self.ingresar_button.pack(side="bottom", padx=10, pady=10)
-
-
-
+      self.project_ingresar_button = tk.Button(self.p4, text="Ingresar", command=ingresar)
+      self.project_ingresar_button.pack(side="bottom", padx=10, pady=10)
