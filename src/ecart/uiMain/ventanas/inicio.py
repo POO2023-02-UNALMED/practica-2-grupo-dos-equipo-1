@@ -33,6 +33,8 @@ class VentanaInicio(tk.Frame):
       system_description = Utils._build_label(tmp_frame,
       
          text=Utils.left_align("""📃 Descripcion del sistema 📚
+
+
             Gracias a nutra interfaz intuitiva y funcionalidades avanzadas,
             Ecart le permite establecer y personalizar sus propias tiendas
             en línea, de manera sencilla y eficiente. Brindando las
