@@ -4,8 +4,10 @@ from typing import Any
 
 # clase abstract para la utilizacion de messagebox de una manera no trivial
 class MsgboxWrapper():
+
    @classmethod
    def show(cls, message_type, message, parent = None) -> Any:
+
       if message_type == "w":
          return messagebox.showwarning("Advertencia", message, parent=parent)
       elif message_type == "i":

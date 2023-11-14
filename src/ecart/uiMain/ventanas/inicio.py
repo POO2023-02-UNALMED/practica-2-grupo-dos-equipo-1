@@ -7,6 +7,7 @@ from ecart.uiMain.ventanas.principal import VentanaPrincipal
 
 class VentanaInicio(tk.Frame):
    def __init__(self, master: tk.Tk, *args, **kwargs) -> None:
+
       super().__init__(master, *args, **kwargs)
       self.master: tk.Tk = master
       
@@ -26,6 +27,7 @@ class VentanaInicio(tk.Frame):
          self.master.destroy()
 
    def show_description(self) -> None:
+
       self.project_images_frame.destroy()
       self.project_ingresar_button.destroy()
 
@@ -76,6 +78,7 @@ siguientes funcionalidades:
       pass
 
    def configure_left_frameholder(self):
+
       left_zone = tk.Frame(self)
       left_zone.place(relwidth=0.5, relheight=1)
 

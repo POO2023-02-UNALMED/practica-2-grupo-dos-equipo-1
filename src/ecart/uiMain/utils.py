@@ -15,6 +15,7 @@ class Utils:
    """builds a label that auroresizes itself"""
    @staticmethod
    def _build_label(*args: Any, **kwargs: Any) -> tk.Label:
+
       label = tk.Label(*args, **kwargs, font=("Broadway",12))
       label.bind("<Configure>", lambda _: label.configure(wraplength=label.winfo_width()))
       return label
@@ -28,6 +29,7 @@ class Utils:
    """gets the root directory of the current module"""
    @staticmethod
    def get_module_rootdir() -> str:
+
       module_path = os.path.abspath(sys.path[0])
 
       if os.path.isfile(module_path):
