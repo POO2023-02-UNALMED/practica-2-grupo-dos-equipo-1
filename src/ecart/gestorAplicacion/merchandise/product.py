@@ -44,5 +44,5 @@ class Product:
         self._tags = tags
 
     @staticmethod
-    def create(name, price, description, quantity, tag, productHolder):
-        return Product(name, price, description, quantity, tag, productHolder)
+    def create(name, price, description, quantity, tag):
+        return Product(name, price, description, quantity, tag)

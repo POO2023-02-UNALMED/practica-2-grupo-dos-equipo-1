@@ -4,6 +4,8 @@ from product import Product
 
 
 class Store(Entity):
+    
+    instances = []
 
     def __init__(self, name, description, address):
         super(name)
@@ -11,6 +13,7 @@ class Store(Entity):
         self._address = address
         self._products = []
         self._balance = 0
+        Store.instances.append(self)
 
     def getDescription(self):
         return self._description
@@ -36,23 +39,11 @@ class Store(Entity):
     def setBalance(self, balance):
         self._balance = balance
 
-    def addUser(self, user):
-        return self.addUserByName(user.getName())
-
-    def addUserByName(self, name):
-        newUser = User.validate(name, self.members)
-        if newUser is not None:
-            return Retval("Failed to join store. User is already a member of the store", False)
-
-        self.members.append(newUser)
-
-        return Retval("Joined store successfully")
-
-    def createProduct(self, name, price, description, quantity, tag, productHolder):
-        newProduct = Product.create(name, price, description, quantity, tag, productHolder, self.getProducts())
+    def createProduct(self, name, price, description, quantity, tag):
+        newProduct = Product.create(name, price, description, quantity, tag)
         if newProduct is None:
             return Retval("Failed to create product. The product already exists inside the store", False)
 
-        self.products.append(newProduct)
+        self.addProduct(newProduct)
 
         return Retval("Created product successfully!")
