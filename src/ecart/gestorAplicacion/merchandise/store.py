@@ -1,4 +1,6 @@
 from entity import Entity
+from retval import Retval
+from product import Product
 
 
 class Store(Entity):

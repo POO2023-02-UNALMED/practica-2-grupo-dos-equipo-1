@@ -1,6 +1,9 @@
 from entity import Entity
 from order import Order
 from delivery import Delivery
+from store import Store
+from retval import Retval
+from product import Product
 
 
 class Admin(Entity):
