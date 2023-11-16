@@ -6,6 +6,4 @@ class VentanaPrincipal(tk.Frame):
 
       super().__init__(master, *args, **kwargs)
       self.master: tk.Tk = master
-      
       master.wm_title("Ecart - Usuario")
-
