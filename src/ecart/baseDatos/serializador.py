@@ -1,5 +1,5 @@
 import pickle
-from gestorAplicacion.entites.person import person
+from gestorAplicacion.entites.admin import Admin
 
 
 class Serializer:

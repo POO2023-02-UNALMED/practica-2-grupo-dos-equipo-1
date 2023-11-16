@@ -1,9 +1,9 @@
 from entity import Entity
-from order import Order
+from transactions.order import Order
 from delivery import Delivery
-from store import Store
-from retval import Retval
-from product import Product
+from merchandise.store import Store
+from transactions.retval import Retval
+from merchandise.product import Product
 
 
 class Admin(Entity):

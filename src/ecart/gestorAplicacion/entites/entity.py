@@ -11,7 +11,7 @@ class Entity:
         if not self.isAddressAvailable(address):
             raise ValueError("Address is not available")
 
-        Person.addresses.append(address)
+        self.addresses.append(address)
 
     # En este caso solo se verifica que la direccion esté entre un valor de 0 - 100
 

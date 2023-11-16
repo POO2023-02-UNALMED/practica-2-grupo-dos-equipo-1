@@ -1,5 +1,5 @@
-from entity import Entity
-from retval import Retval
+from gestorAplicacion.entites.entity import Entity
+from transactions.retval import Retval
 from product import Product
 
 
