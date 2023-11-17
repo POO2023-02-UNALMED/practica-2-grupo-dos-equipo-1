@@ -22,12 +22,12 @@ class Utils:
 
    """Iterates infinately over a given list"""
    @staticmethod
-   def iterate_inf(l) -> Iterator:
+   def iterate_inf(l: Any) -> Iterator:
       while True:
          for item in l: yield item
 
    @staticmethod
-   def left_align(text):
+   def left_align(text: str):
       return '\n'.join(line.lstrip() for line in text.split('\n'))
 
    """gets the root directory of the current module"""
@@ -39,7 +39,7 @@ class Utils:
       )
 
    @staticmethod
-   def get_images(*source_path) -> list:
+   def get_images(*source_path: str) -> list:
 
       source_dir = os.path.join(Utils.get_module_rootdir(), "images", *source_path)
       files = []
@@ -53,5 +53,5 @@ class Utils:
       return files
 
    @staticmethod
-   def get_images_iterator(*source_path) -> Iterator:
+   def get_images_iterator(*source_path: str) -> Iterator:
       return Utils.iterate_inf(Utils.get_images(*source_path))
