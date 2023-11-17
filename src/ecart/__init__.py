@@ -1,4 +1,5 @@
 from tkinter import Tk
+
 from ecart.uiMain.ventanas.inicio import VentanaInicio
 
 def main() -> None:

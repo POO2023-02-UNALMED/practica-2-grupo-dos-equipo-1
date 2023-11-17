@@ -1,4 +1,6 @@
 import tkinter as tk
+from typing import Tuple
+
 from ecart.uiMain.parts.msgbox_wrapper import MsgboxWrapper as MB
 from ecart.uiMain.utils import Utils
 from ecart.uiMain.ventanas.principal import VentanaPrincipal
@@ -70,7 +72,7 @@ class VentanaInicio(tk.Frame):
 
       self.master.config(menu=menubar)
 
-   def configure_right_frameholder(self):
+   def configure_right_frameholder(self) -> None:
 
       right_zone = tk.Frame(self)
       right_zone.place(relx=0.5, relwidth=0.5, relheight=1)
@@ -79,18 +81,12 @@ class VentanaInicio(tk.Frame):
       p2 = Utils._build_frame(right_zone)
       p2.pack(expand=True, fill="both", padx=(5, 10), pady=10)
 
-
-      class Author:
-         def __init__(self, name, semester, info):
-            self.name = name
-            self.semester = semester
-            self.info = info
-
+      # [nombre, semestre, informacion]
       authors = {
-         "angel": Author("Angel", "3", "Desarrollador de software apasionado"),
-         "sebastian": Author("Sebastian", "3", "Desarrollador de software apasionado"),
-         "rodrigo": Author("Rodrigo", "3", "Desarrollador de software apasionado"),
-         "santiago": Author("Santiago", "3", "Desarrollador de software apasionado")
+         "angel": ("Angel", "3", "Desarrollador de software apasionado"),
+         "sebastian": ("Sebastian", "3", "Desarrollador de software apasionado"),
+         "rodrigo": ("Rodrigo", "3", "Desarrollador de software apasionado"),
+         "santiago": ("Santiago", "3", "Desarrollador de software apasionado")
       }
 
       names = Utils.iterate_inf(authors.keys())
@@ -107,15 +103,15 @@ class VentanaInicio(tk.Frame):
 
       def set_next_biography() -> None:
 
-         author: Author = next(biographies)
+         author: Tuple = next(biographies)
 
          biography_display.config(text=Utils.left_align(
             f"""Hoja de Vida de los Autores
             (haga click)
 
-            🗯️ Nombre: {author.name}
-            📙 Semestre: {author.semester}
-            📃 Informacion: {author.info}""")
+            🗯️ Nombre: {author[0]}
+            📙 Semestre: {author[1]}
+            📃 Informacion: {author[2]}""")
          )
 
       set_next_biography()
@@ -153,7 +149,7 @@ class VentanaInicio(tk.Frame):
       biography_display.bind("<Button-1>", lambda _: set_next_author())
 
 
-   def configure_left_frameholder(self):
+   def configure_left_frameholder(self) -> None:
 
       left_zone = tk.Frame(self)
       left_zone.place(relwidth=0.5, relheight=1)
