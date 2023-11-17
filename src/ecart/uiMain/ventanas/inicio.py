@@ -20,8 +20,11 @@ class VentanaInicio(tk.Frame):
       self.setup_left_frameholder()
 
    @staticmethod
-   def start(root: tk.Tk) -> None:
-      VentanaInicio(root, bg="lightblue").pack(fill="both", side="top", expand = True)
+   def start(root: tk.Tk) -> tk.Frame:
+      v = VentanaInicio(root, bg="lightblue")
+      v.pack(fill="both", side="top", expand = True)
+
+      return v
 
    def show_description(self) -> None:
 

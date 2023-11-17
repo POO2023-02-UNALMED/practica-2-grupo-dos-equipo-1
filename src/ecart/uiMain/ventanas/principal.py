@@ -16,12 +16,28 @@ class VentanaPrincipal(tk.Frame):
       master.wm_title("Ecart - Usuario")
 
       self.setup_menubar()
+      self.setup_welcome()
 
    @staticmethod
-   def start(root: tk.Tk) -> None:
-      VentanaPrincipal(root, bg="lightgreen").pack(fill="both",
-                                                   side="top",
-                                                   expand=True)
+   def start(root: tk.Tk) -> tk.Frame:
+      v = VentanaPrincipal(root, bg="lightblue")
+      v.pack(fill="both", side="top", expand=True)
+
+      return v
+
+   def configure_process_frame(self, new_frame=None, do_switch=False) -> None:
+      if new_frame is None:
+         new_frame = Utils._build_frame(self)
+
+      if do_switch:
+         self.process_frame.destroy()
+
+      self.process_frame = new_frame
+      self.process_frame.pack(side="top",
+                              fill="both",
+                              expand=True,
+                              padx=10,
+                              pady=10)
 
    def regresar_inicio(self) -> None:
       should_return = MB.show("ay",
@@ -57,6 +73,9 @@ class VentanaPrincipal(tk.Frame):
 
       MB.show("i", info, self)
 
+   def setup_welcome(self) -> None:
+      self.configure_process_frame()
+
    def setup_menubar(self) -> None:
 
       menubar = tk.Menu(self.master)
@@ -73,8 +92,16 @@ class VentanaPrincipal(tk.Frame):
                                command=self.show_description)
       archivo_menu.add_command(label="Salir", command=self.regresar_inicio)
 
-      ayuda_menu.add_command(label="Acerca de", command=self.show_authors)
+      # se supone que los 'commands' van a ser de la forma:
+      # command=lambda: self.configure_process_frame(Process1.start())
 
+      ayuda_menu.add_command(label="Funcion 1", command=self.show_authors)
+      ayuda_menu.add_command(label="Funcion 2", command=self.show_authors)
+      ayuda_menu.add_command(label="Funcion 3", command=self.show_authors)
+      ayuda_menu.add_command(label="Funcion 4", command=self.show_authors)
+      ayuda_menu.add_command(label="Funcion 5", command=self.show_authors)
+
+      ayuda_menu.add_command(label="Acerca de", command=self.show_authors)
 
       self.master.config(menu=menubar)
 
