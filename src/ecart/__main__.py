@@ -1,3 +1,4 @@
 import ecart
 
-ecart.main()
+if __name__ == "__main__":
+   ecart.main()

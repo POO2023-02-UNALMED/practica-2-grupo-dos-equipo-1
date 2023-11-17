@@ -1,8 +1,7 @@
 import tkinter as tk
 
 from typing import Any, Iterator
-import os, sys
-
+import os
 
 # este archivo contiene clases abstractas con
 # metodos usados en varias partes de la interfaz
@@ -34,19 +33,15 @@ class Utils:
    """gets the root directory of the current module"""
    @staticmethod
    def get_module_rootdir() -> str:
-
-      module_path = os.path.abspath(sys.path[0])
-
-      if os.path.isfile(module_path):
-         return os.path.dirname(module_path)
-
-      return module_path
+      return os.path.join(
+         os.path.abspath(__file__).split("ecart", 1)[0],
+         "ecart"
+      )
 
    @staticmethod
    def get_images(*source_path) -> list:
 
-      source_dir = os.path.join(Utils.get_module_rootdir(), "ecart", "images", *source_path)
-
+      source_dir = os.path.join(Utils.get_module_rootdir(), "images", *source_path)
       files = []
 
       for f in os.listdir(source_dir):

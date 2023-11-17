@@ -1,7 +1,7 @@
 import tkinter as tk
 from typing import Tuple
 
-from ecart.uiMain.parts.msgbox_wrapper import MsgboxWrapper as MB
+from ecart.uiMain.helpers.msgbox_wrapper import MsgboxWrapper as MB
 from ecart.uiMain.utils import Utils
 from ecart.uiMain.ventanas.principal import VentanaPrincipal
 
