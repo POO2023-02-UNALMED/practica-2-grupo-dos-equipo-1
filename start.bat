@@ -1,4 +1,4 @@
 @echo off
 
-cd src
+set PYTHONPATH=%CD%\src
 python -m ecart
