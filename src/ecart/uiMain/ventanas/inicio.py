@@ -1,9 +1,10 @@
 import tkinter as tk
 from typing import Tuple
 
-from ecart.uiMain.helpers.msgbox_wrapper import MsgboxWrapper as MB
 from ecart.uiMain.utils import Utils
-from ecart.uiMain.ventanas.principal import VentanaPrincipal
+from .principal import VentanaPrincipal
+from .commons import Commons
+from ecart.uiMain.helpers.msgbox_wrapper import MsgboxWrapper as MB
 
 
 class VentanaInicio(tk.Frame):
@@ -14,15 +15,13 @@ class VentanaInicio(tk.Frame):
       
       master.wm_title("Ecart - Inicio")
 
-      self.configure_menubar()
-      self.configure_right_frameholder()
-      self.configure_left_frameholder()
+      self.setup_menubar()
+      self.setup_right_frameholder()
+      self.setup_left_frameholder()
 
-   def exit_program(self) -> None:
-
-      should_exit = MB.show("ay", "Estas seguro que deseas salir de la aplicación?")
-      if should_exit:
-         self.master.destroy()
+   @staticmethod
+   def start(root: tk.Tk) -> None:
+      VentanaInicio(root, bg="lightblue").pack(fill="both", side="top", expand = True)
 
    def show_description(self) -> None:
 
@@ -59,7 +58,14 @@ class VentanaInicio(tk.Frame):
       regresar_button = tk.Button(tmp_frame, text="Regresar", command=_destroy)
       regresar_button.pack(side="bottom", padx=10, pady=10)
 
-   def configure_menubar(self) -> None:
+   def exit_program(self) -> None:
+
+      should_exit = MB.show("ay",
+                            "Estas seguro que deseas salir de la aplicación?")
+      if should_exit:
+         self.master.destroy()
+
+   def setup_menubar(self) -> None:
 
       menubar = tk.Menu(self.master)
 
@@ -67,12 +73,11 @@ class VentanaInicio(tk.Frame):
       menubar.add_cascade(label="Inicio", menu=inicio_menu)
 
       inicio_menu.add_command(label="Salir", command=self.exit_program)
-      inicio_menu.add_separator()
       inicio_menu.add_command(label="Descripción", command=self.show_description)
 
       self.master.config(menu=menubar)
 
-   def configure_right_frameholder(self) -> None:
+   def setup_right_frameholder(self) -> None:
 
       right_zone = tk.Frame(self)
       right_zone.place(relx=0.5, relwidth=0.5, relheight=1)
@@ -81,13 +86,7 @@ class VentanaInicio(tk.Frame):
       p2 = Utils._build_frame(right_zone)
       p2.pack(expand=True, fill="both", padx=(5, 10), pady=10)
 
-      # [nombre, semestre, informacion]
-      authors = {
-         "angel": ("Angel", "3", "Desarrollador de software apasionado"),
-         "sebastian": ("Sebastian", "3", "Desarrollador de software apasionado"),
-         "rodrigo": ("Rodrigo", "3", "Desarrollador de software apasionado"),
-         "santiago": ("Santiago", "3", "Desarrollador de software apasionado")
-      }
+      authors = Commons.AUTHORS
 
       names = Utils.iterate_inf(authors.keys())
       biographies = Utils.iterate_inf(authors.values())
@@ -148,7 +147,7 @@ class VentanaInicio(tk.Frame):
       biography_display.bind("<Button-1>", lambda _: set_next_author())
 
 
-   def configure_left_frameholder(self) -> None:
+   def setup_left_frameholder(self) -> None:
 
       left_zone = tk.Frame(self)
       left_zone.place(relwidth=0.5, relheight=1)
@@ -199,7 +198,7 @@ class VentanaInicio(tk.Frame):
       def ingresar() -> None:
          self.master.config(menu=tk.Menu()) # destroy master menu
          self.destroy() # destroy current frame
-         VentanaPrincipal(self.master, bg="lightgreen").pack(fill="both", side="top", expand = True)
+         VentanaPrincipal.start(self.master)
 
       self.project_ingresar_button = tk.Button(self.p4, text="Ingresar", command=ingresar)
       self.project_ingresar_button.pack(side="bottom", padx=10, pady=10)
