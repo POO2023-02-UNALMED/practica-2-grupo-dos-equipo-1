@@ -141,7 +141,6 @@ class VentanaInicio(tk.Frame):
             self.current_images[i].config(file=next_images[i])
 
       # putting it all together
-      
       def set_next_author() -> None:
          set_next_biography()
          set_next_images()
@@ -162,7 +161,6 @@ class VentanaInicio(tk.Frame):
       p3 = Utils._build_frame(p1)
       p3.pack(side="top", padx=10, pady=10, fill="x")
 
-      # no cambiar! hace que se vea mejor en la interfaz
       welcome_message = Utils._build_label(p3, text=Utils.left_align(
          """🛍️ Bienvenido a Ecart 👷
          Ecart le permite gestionar todo sobre sus negocioes,
