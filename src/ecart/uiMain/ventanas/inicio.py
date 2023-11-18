@@ -3,7 +3,7 @@ from typing import Tuple
 
 from ecart.uiMain.utils import Utils
 from .principal import VentanaPrincipal
-from .commons import Commons
+from ecart.uiMain.commons import Commons
 from ecart.uiMain.helpers.msgbox_wrapper import MsgboxWrapper as MB
 
 
@@ -203,5 +203,5 @@ class VentanaInicio(tk.Frame):
          self.destroy() # destroy current frame
          VentanaPrincipal.start(self.master)
 
-      self.project_ingresar_button = tk.Button(self.p4, text="Ingresar", command=ingresar)
+      self.project_ingresar_button = tk.Button(self.p4, text="    Ingresar    ", command=ingresar)
       self.project_ingresar_button.pack(side="bottom", padx=10, pady=10)

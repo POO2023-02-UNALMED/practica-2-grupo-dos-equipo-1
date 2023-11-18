@@ -3,6 +3,8 @@ import tkinter as tk
 from typing import Any, Iterator
 import os
 
+from ecart.uiMain.commons import Commons
+
 # este archivo contiene clases abstractas con
 # metodos usados en varias partes de la interfaz
 
@@ -16,8 +18,9 @@ class Utils:
    @staticmethod
    def _build_label(*args: Any, **kwargs: Any) -> tk.Label:
 
-      label = tk.Label(*args, **kwargs, font=("Broadway",12))
+      label = tk.Label(*args, **kwargs, font=Commons.TEXT_FONT)
       label.bind("<Configure>", lambda _: label.configure(wraplength=label.winfo_width()))
+
       return label
 
    """Iterates infinately over a given list"""
@@ -33,15 +36,20 @@ class Utils:
    """gets the root directory of the current module"""
    @staticmethod
    def get_module_rootdir() -> str:
+
       return os.path.join(
          os.path.abspath(__file__).split("ecart", 1)[0],
          "ecart"
       )
 
    @staticmethod
+   def get_file(*path: str) -> str:
+      return os.path.join(Utils.get_module_rootdir(), "images", *path)
+
+   @staticmethod
    def get_images(*source_path: str) -> list:
 
-      source_dir = os.path.join(Utils.get_module_rootdir(), "images", *source_path)
+      source_dir = Utils.get_file(*source_path)
       files = []
 
       for f in os.listdir(source_dir):

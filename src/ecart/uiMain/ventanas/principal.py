@@ -1,12 +1,15 @@
 import tkinter as tk
 
 from ecart.uiMain.utils import Utils
-
-from .commons import Commons
+from ecart.uiMain.commons import Commons
 from ecart.uiMain.helpers.msgbox_wrapper import MsgboxWrapper as MB
+from ecart.uiMain.helpers.scrollable_text import ScrollableText
+import random
 
 
 class VentanaPrincipal(tk.Frame):
+
+   STORE_ICON = Utils.get_file("assets", "store.png")
 
    def __init__(self, master: tk.Tk, *args, **kwargs) -> None:
 
@@ -86,24 +89,64 @@ class VentanaPrincipal(tk.Frame):
 
       MB.show("i", info, self)
 
-   def setup_welcome(self) -> None:
-      self.configure_process_frame()
+   def setup_upper_zone(self) -> None:
 
-      upper_zone = tk.Frame(self.process_frame)
-      upper_zone.place(relwidth=1, relheight=0.35)
-
-      lower_zone = tk.Frame(self.process_frame, bg="lightpink")
-      lower_zone.place(rely=0.35, relwidth=1, relheight=0.65)
-
-      banner_label = tk.Label(upper_zone,
+      banner_label = tk.Label(self.upper_zone,
                               text=VentanaPrincipal.BANNER,
-                              font=("Courier", 17),
+                              font=Commons.TAG_FONT,
                               bg="lightsteelblue")
+
       banner_label.pack(side="bottom",
                         expand=True,
                         padx=10,
                         pady=10,
                         fill="both")
+
+   def setup_lower_zone(self) -> None:
+
+      icon = tk.PhotoImage(file=VentanaPrincipal.STORE_ICON)
+      stores_pseudoframe = ScrollableText(self.lower_zone,
+                                          wrap="char",
+                                          borderwidth=0,
+                                          highlightthickness=0,
+                                          state="disabled",
+                                          cursor="arrow")
+
+      def add_store_to_grid() -> None:
+
+         item = tk.Label(bd=5,
+                         padx=5,
+                         image=icon,
+                         text="Store Name",
+                         compound=tk.TOP,
+                         font=("Broadway", 18, "bold"),
+                         relief="solid",
+                         bg=random.choice(
+                             ("lightpink", "lightyellow", "lightgreen",
+                              "lightblue", "lightsalmon")))
+
+         item.bind("<Button-1>", lambda _: print("hello world"))
+         stores_pseudoframe.window_create(
+             "end", window=item)  # put it inside the pseudo frame
+
+      add_button = tk.Button(self.lower_zone,
+                             text="   Create Store   ",
+                             command=add_store_to_grid)
+
+      add_button.pack(pady=(0, 10))
+      stores_pseudoframe.pack(fill="both", expand=True, padx=10)
+
+   def setup_welcome(self) -> None:
+      self.configure_process_frame()
+
+      self.upper_zone = tk.Frame(self.process_frame)
+      self.upper_zone.place(relwidth=1, relheight=0.35)
+
+      self.lower_zone = tk.Frame(self.process_frame, bg="lightpink")
+      self.lower_zone.place(rely=0.35, relwidth=1, relheight=0.65)
+
+      self.setup_upper_zone()
+      self.setup_lower_zone()
 
    def setup_menubar(self) -> None:
 
