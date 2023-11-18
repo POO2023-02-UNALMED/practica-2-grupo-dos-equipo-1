@@ -26,6 +26,7 @@ class VentanaPrincipal(tk.Frame):
       return v
 
    def configure_process_frame(self, new_frame=None, do_switch=False) -> None:
+
       if new_frame is None:
          new_frame = Utils._build_frame(self)
 
@@ -39,7 +40,17 @@ class VentanaPrincipal(tk.Frame):
                               padx=10,
                               pady=10)
 
+   BANNER = '''     _______   ________  ________  ________  _________    
+     |\\  ___ \\ |\\   ____\\|\\   __  \\|\\   __  \\|\\___   ___\\  
+     \\ \\   __/|\\ \\  \\___|\\ \\  \\|\\  \\ \\  \\|\\  \\|___ \\  \\_|  
+      \\ \\  \\_|/_\\ \\  \\    \\ \\   __  \\ \\   _  _\\   \\ \\  \\   
+       \\ \\  \\_|\\ \\ \\  \\____\\ \\  \\ \\  \\ \\  \\\\  \\|   \\ \\  \\  
+        \\ \\_______\\ \\_______\\ \\__\\ \\__\\ \\__\\\\ _\\    \\ \\__\\ 
+         \\|_______|\\|_______|\\|__|\\|__|\\|__|\\|__|    \\|__| 
+         '''
+
    def regresar_inicio(self) -> None:
+
       should_return = MB.show("ay",
                               "Estas seguro que deseas regresar al inicio?",
                               self)
@@ -55,6 +66,7 @@ class VentanaPrincipal(tk.Frame):
                                                          expand=True)
 
    def show_authors(self) -> None:
+
       msg = "Autores de la aplicacion:\n\n"
       for a in Commons.AUTHORS.values():
 
@@ -63,6 +75,7 @@ class VentanaPrincipal(tk.Frame):
       MB.show("i", msg[:-1], self)
 
    def show_description(self) -> None:
+
       info = Utils.left_align("""
          1. ECart es tu plataforma para convertir tus pasatiempos creativos en oportunidades de negocio rentables.
          2. Vende tus creaciones de Crochet, Origami, Dibujo y más.
@@ -75,6 +88,22 @@ class VentanaPrincipal(tk.Frame):
 
    def setup_welcome(self) -> None:
       self.configure_process_frame()
+
+      upper_zone = tk.Frame(self.process_frame)
+      upper_zone.place(relwidth=1, relheight=0.35)
+
+      lower_zone = tk.Frame(self.process_frame, bg="lightpink")
+      lower_zone.place(rely=0.35, relwidth=1, relheight=0.65)
+
+      banner_label = tk.Label(upper_zone,
+                              text=VentanaPrincipal.BANNER,
+                              font=("Courier", 17),
+                              bg="lightsteelblue")
+      banner_label.pack(side="bottom",
+                        expand=True,
+                        padx=10,
+                        pady=10,
+                        fill="both")
 
    def setup_menubar(self) -> None:
 
@@ -94,134 +123,12 @@ class VentanaPrincipal(tk.Frame):
 
       # se supone que los 'commands' van a ser de la forma:
       # command=lambda: self.configure_process_frame(Process1.start())
-
-      ayuda_menu.add_command(label="Funcion 1", command=self.show_authors)
-      ayuda_menu.add_command(label="Funcion 2", command=self.show_authors)
-      ayuda_menu.add_command(label="Funcion 3", command=self.show_authors)
-      ayuda_menu.add_command(label="Funcion 4", command=self.show_authors)
-      ayuda_menu.add_command(label="Funcion 5", command=self.show_authors)
+      procesos_menu.add_command(label="Funcion 1", command=self.show_authors)
+      procesos_menu.add_command(label="Funcion 2", command=self.show_authors)
+      procesos_menu.add_command(label="Funcion 3", command=self.show_authors)
+      procesos_menu.add_command(label="Funcion 4", command=self.show_authors)
+      procesos_menu.add_command(label="Funcion 5", command=self.show_authors)
 
       ayuda_menu.add_command(label="Acerca de", command=self.show_authors)
 
       self.master.config(menu=menubar)
-
-   def setup_ui(self):
-      self.master.resizable(False, False)
-      self.configure(bg="#cedae0")
-      self.pack_propagate(False)
-
-      menuBar = tk.Menu(self.master)
-      self.master.option_add("*tearOff", False)
-      self.master.config(menu=menuBar)
-
-      menu1 = tk.Menu(menuBar)
-      menuBar.add_cascade(label="Archivo", menu=menu1)
-
-      # Funcion de aplicacion
-      def aplicacion():
-         texto = """Bienvenido a ECart.
-
-"Empower Your Passion, Share Your Creations"
-
-Descripción
-
-ECart (Carrito Electrónico) es una aplicación de E-commerce para la compra y venta de productos 
-creados por los usuarios. ECart permite convertir hobbies como Crochet, Origami, Dibujo, etc., en 
-fuentes de ingresos rentable, facilitando la comercialización de dichos productos misceláneos 
-ofreciendo hosting, exposición, manejo de trámites y Delivery rentable.
-                    """
-         # tk.messagebox.showinfo("Informacion de la aplicacion", texto)
-
-      menu1.add_cascade(label="Aplicacion", command=aplicacion)
-
-      # Funcion salir
-      def salir():
-         self.destroy()
-
-      menu1.add_cascade(label="Salir", command=salir)
-
-      menu2 = tk.Menu(menuBar)
-      menuBar.add_cascade(label="Procesos y Consultas", menu=menu2)
-
-      # Funciones
-      def funcion1():
-         pass
-
-      def funcion2():
-         pass
-
-      def funcion3():
-         pass
-
-      def funcion4():
-         pass
-
-      def funcion5():
-         pass
-
-      menu2.add_cascade(label="Funcion 1", command=funcion1)
-      menu2.add_cascade(label="Funcion 2", command=funcion2)
-      menu2.add_cascade(label="Funcion 3", command=funcion3)
-      menu2.add_cascade(label="Funcion 4", command=funcion4)
-      menu2.add_cascade(label="Funcion 5", command=funcion5)
-
-      menu3 = tk.Menu(menuBar)
-      menuBar.add_cascade(label="Ayuda", menu=menu3)
-
-      # Funcion de mostrar autores
-
-      def mostrarAutores():
-         autores = ("Autores de la aplicacion:\n\n" + "Sebas Cadavid\n" +
-                    "Rodrigo\n" + "Santiago Giraldo\n" + "Angell Pimienta\n")
-         # messagebox.showinfo("Autores", autores)
-
-      menu3.add_cascade(label="Acerca de", command=mostrarAutores)
-
-      self.master.configure(bd=2, relief="solid")
-
-      frame = tk.Frame(self.master)
-      frame.pack(anchor="center")
-
-      bienvenida_label = tk.Label(frame,
-                                  text="Bienvenido a",
-                                  font=("Arial", 14, "bold"))
-      bienvenida_label.pack(anchor="n", pady=10)
-
-      self.texto_inicio = """
-           ▄████████  ▄████████    ▄████████    ▄████████     ███     
-          ███    ███ ███    ███   ███    ███   ███    ███ ▀█████████▄ 
-          ███    █▀  ███    █▀    ███    ███   ███    ███    ▀███▀▀██ 
-         ▄███▄▄▄     ███          ███    ███  ▄███▄▄▄▄██▀     ███   ▀ 
-        ▀▀███▀▀▀     ███        ▀███████████ ▀▀███▀▀▀▀▀       ███     
-          ███    █▄  ███    █▄    ███    ███ ▀███████████     ███     
-          ███    ███ ███    ███   ███    ███   ███    ███     ███     
-          ██████████ ████████▀    ███    █▀    ███    ███    ▄████▀   
-            """
-
-      # self.inicio()
-
-      label_dibujo = tk.Label(frame,
-                              text=self.texto_inicio,
-                              font=("Courier", 11),
-                              width=200)
-      label_dibujo.pack(anchor="n")
-
-      informacion = """
-
-        1. ECart es tu plataforma para convertir tus pasatiempos creativos en oportunidades de negocio rentables.
-        2. Vende tus creaciones de Crochet, Origami, Dibujo y más.
-        3. Facilitamos la comercialización de tus productos ofreciéndote hosting, exposición, manejo de trámites y envío rentable.
-        4. ¡Muestra tu talento, gana dinero y explora productos únicos en nuestra comunidad!\n
-        ¡Gracias por ser parte de ECart!
-
-        """
-
-      info_text = tk.Label(frame,
-                           text=informacion,
-                           font=("Arial", 10),
-                           fg="black",
-                           bg="lightblue",
-                           width=110)
-      info_text.pack(anchor="s", pady=5)
-
-      self.mainloop()

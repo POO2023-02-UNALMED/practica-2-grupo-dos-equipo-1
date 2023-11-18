@@ -21,7 +21,7 @@ class VentanaInicio(tk.Frame):
 
    @staticmethod
    def start(root: tk.Tk) -> tk.Frame:
-      v = VentanaInicio(root, bg="lightblue")
+      v = VentanaInicio(root)
       v.pack(fill="both", side="top", expand = True)
 
       return v
