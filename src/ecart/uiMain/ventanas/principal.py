@@ -140,14 +140,15 @@ class VentanaPrincipal(tk.Frame):
                                    highlightthickness=3,
                                    highlightbackground=color)
 
-
       store: Store | None = Admin.current.get_current_store()
 
-      title = Utils._build_label(title_frame, text=f"{f.title}\n({store.get_name() if store else ''})", font=Commons.HEADER_FONT)
+      title = Utils._build_label(
+          title_frame,
+          text=f"{f.title}\n({store.get_name() if store else ''})",
+          font=Commons.HEADER_FONT)
       description = Utils._build_label(description_frame,
-                             text=f.description,
-                             font=Commons.DESC_FONT)
-
+                                       text=f.description,
+                                       font=Commons.DESC_FONT)
 
       title_frame.pack(pady=(10, 5))
       description_frame.pack(pady=(0, 10))
@@ -176,10 +177,14 @@ class VentanaPrincipal(tk.Frame):
       # command=lambda: self.configure_process_frame(Process1.start())
       procesos_menu.add_command(label="Choose Store",
                                 command=lambda: self.pick_process(ChooseStore))
-      procesos_menu.add_command(label="Funcion 2", command=self.show_authors)
-      procesos_menu.add_command(label="Funcion 3", command=self.show_authors)
-      procesos_menu.add_command(label="Funcion 4", command=self.show_authors)
-      procesos_menu.add_command(label="Funcion 5", command=self.show_authors)
+      procesos_menu.add_command(label="Funcion 2",
+                                command=lambda: self.pick_process(ChooseStore))
+      procesos_menu.add_command(label="Funcion 3",
+                                command=lambda: self.pick_process(ChooseStore))
+      procesos_menu.add_command(label="Funcion 4",
+                                command=lambda: self.pick_process(ChooseStore))
+      procesos_menu.add_command(label="Funcion 5",
+                                command=lambda: self.pick_process(ChooseStore))
 
       ayuda_menu.add_command(label="Acerca de", command=self.show_authors)
 

@@ -33,9 +33,11 @@ class FieldFrame(tk.Frame):
       super().__init__(master, *args, **kwargs)
 
       if title:
-         tk.Label(self, text=title, font=Commons.TEXT_FONT_B).pack(pady=10)
+         tk.Label(self, text=title, font=Commons.TEXT_FONT_B).pack(pady=(10, 7))
 
-      self.form = tk.Frame(self, bg="lightblue")
+      self.form = tk.Frame(self,
+                           highlightthickness=2,
+                           highlightbackground="gray", padx=45, pady=10)
       self.form.pack(expand=True, side="top", anchor="center")
       self.form.grid_columnconfigure(0, pad=20)
 
