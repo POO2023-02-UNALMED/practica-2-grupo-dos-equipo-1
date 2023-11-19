@@ -5,7 +5,7 @@ class Commons():
    TEXT_FONT_I = ("Broadway",12, "italic")
    TEXT_FONT_BI = ("Broadway",12, "bold italic")
    HEADER_FONT = ("Courier", 17, "bold")
-   DESC_FONT = ("Courier", 15, "bold")
+   DESC_FONT = ("Courier", 14, "bold")
 
    AUTHORS = {
        "angel": ("Angel", "3", "Desarrollador de software apasionado"),

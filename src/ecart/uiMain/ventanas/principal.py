@@ -143,8 +143,8 @@ class VentanaPrincipal(tk.Frame):
 
       store: Store | None = Admin.current.get_current_store()
 
-      title = tk.Label(title_frame, text=f"{f.title}\n({store.get_name() if store else ''})", font=Commons.HEADER_FONT)
-      description = tk.Label(description_frame,
+      title = Utils._build_label(title_frame, text=f"{f.title}\n({store.get_name() if store else ''})", font=Commons.HEADER_FONT)
+      description = Utils._build_label(description_frame,
                              text=f.description,
                              font=Commons.DESC_FONT)
 

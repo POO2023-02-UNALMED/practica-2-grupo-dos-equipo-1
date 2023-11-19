@@ -18,7 +18,7 @@ class Utils:
    @staticmethod
    def _build_label(*args: Any, **kwargs: Any) -> tk.Label:
 
-      label = tk.Label(*args, **kwargs, font=Commons.TEXT_FONT)
+      label = tk.Label(*args, **kwargs)
       label.bind("<Configure>", lambda _: label.configure(wraplength=label.winfo_width()))
 
       return label

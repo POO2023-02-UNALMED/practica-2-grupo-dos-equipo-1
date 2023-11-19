@@ -50,7 +50,7 @@ class VentanaInicio(tk.Frame):
               3. Hacer entregas
               4. Sugerir productos
               5. Gestionar ingresos
-            """))
+            """), font=Commons.TEXT_FONT)
 
       system_description.pack(expand=True, fill="both")
 
@@ -177,7 +177,7 @@ class VentanaInicio(tk.Frame):
           p3,
           text=Utils.left_align("""🛍️ Bienvenido a Ecart 👷
          Ecart le permite gestionar todo sobre sus negocioes,
-         incluyendo sus mercancias, pedidos y personal"""))
+         incluyendo sus mercancias, pedidos y personal"""), font=Commons.TEXT_FONT)
 
       welcome_message.pack(expand=True, fill="x", padx=10, pady=10)
 
