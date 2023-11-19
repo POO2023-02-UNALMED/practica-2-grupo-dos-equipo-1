@@ -5,6 +5,13 @@ from ecart.gestorAplicacion.merchandise.tags import Tags
 from ecart.gestorAplicacion.entites.entity import Entity
 
 
+def deserializar():
+    # Deserializar la lista de instancias desde el archivo
+    with open('archivo_serializado.pkl', 'rb') as archivo:
+        lista_deserializada = pickle.load(archivo)
+    return lista_deserializada
+
+
 class Store(Entity):
     instances = []
 
@@ -54,42 +61,10 @@ class Store(Entity):
 
         return "Se actualizó la configuración de la tienda correctamente"
 
-    class StoreSerializer:
-        @staticmethod
-        def serialize(stores):
-            serialized_stores = []
-            for store in stores:
-                serialized_store = {
-                    'name': store.get_name(),
-                    'address': store.get_address(),
-                    'tag': store._tag,  # Assuming Tags is serializable
-                    'description': store.get_description(),
-                    'balance': store.get_balance()
-                }
-                serialized_stores.append(serialized_store)
-            return pickle.dumps(serialized_stores)
-
-        @staticmethod
-        def deserialize(serialized_data):
-            deserialized_stores = pickle.loads(serialized_data)
-            stores = []
-            for data in deserialized_stores:
-                name = data['name']
-                address = data['address']
-                tag = data['tag']
-                description = data['description']
-                balance = data['balance']
-
-                # Assuming Tags has a method to deserialize itself
-                deserialized_tag = Tags.deserialize(tag)
-
-                # Create a new Store instance
-                store = Store.create(name, address, deserialized_tag, description)
-                store.set_balance(balance)
-
-                stores.append(store)
-
-            return stores
+    def serializar(self):
+        # Serializar la lista de instancias
+        with open('archivo_serializado.pkl', 'wb') as archivo:
+            pickle.dump(self, archivo)
 
     def set_tag(self, tag: Tags) -> None:
         self._tag = tag
@@ -122,3 +97,42 @@ class Store(Entity):
     #    self.add_product(newProduct)
     #
     #    return Retval("Created product successfully!")
+
+    """
+        class StoreSerializer:
+            @staticmethod
+            def serialize(stores):
+                serialized_stores = []
+                for store in stores:
+                    serialized_store = {
+                        'name': store.get_name(),
+                        'address': store.get_address(),
+                        'tag': store._tag,  # Assuming Tags is serializable
+                        'description': store.get_description(),
+                        'balance': store.get_balance()
+                    }
+                    serialized_stores.append(serialized_store)
+                return pickle.dumps(serialized_stores)
+
+            @staticmethod
+            def deserialize(serialized_data):
+                deserialized_stores = pickle.loads(serialized_data)
+                stores = []
+                for data in deserialized_stores:
+                    name = data['name']
+                    address = data['address']
+                    tag = data['tag']
+                    description = data['description']
+                    balance = data['balance']
+
+                    # Assuming Tags has a method to deserialize itself
+                    deserialized_tag = Tags.deserialize(tag)
+
+                    # Create a new Store instance
+                    store = Store.create(name, address, deserialized_tag, description)
+                    store.set_balance(balance)
+
+                    stores.append(store)
+
+                return stores
+    """

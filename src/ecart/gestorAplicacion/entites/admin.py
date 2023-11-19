@@ -3,6 +3,7 @@ from typing import Optional, Tuple
 
 from ecart.gestorAplicacion.merchandise.store import Store
 from ecart.gestorAplicacion.merchandise.tags import Tags
+from ecart.gestorAplicacion.merchandise.store import deserializar
 from .entity import Entity
 import ecart.gestorAplicacion.errors as errors
 
