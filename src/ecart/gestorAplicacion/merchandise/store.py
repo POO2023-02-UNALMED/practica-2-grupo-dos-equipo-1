@@ -6,100 +6,99 @@ from ecart.gestorAplicacion.entites.entity import Entity
 
 
 def deserializar():
-    # Deserializar la lista de instancias desde el archivo
-    with open('archivo_serializado.pkl', 'rb') as archivo:
-        lista_deserializada = pickle.load(archivo)
-    return lista_deserializada
+   # Deserializar la lista de instancias desde el archivo
+   with open('archivo_serializado.pkl', 'rb') as archivo:
+      lista_deserializada = pickle.load(archivo)
+   return lista_deserializada
 
 
 class Store(Entity):
-    instances = []
+   instances = []
 
-    def __init__(self, name: str, address: Tuple[int, int], tag: Tags,
-                 description: str):
+   def __init__(self, name: str, address: Tuple[int, int], tag: Tags,
+                description: str):
 
-        super().__init__(name, address)
+      super().__init__(name, address)
 
-        self._description = description
-        self._tag = tag
-        self._balance = 0
-        # self._products: list[Product] = []
+      self._description = description
+      self._tag = tag
+      self._balance = 0
+      # self._products: list[Product] = []
 
-        Store.instances.append(self)
+      Store.instances.append(self)
 
-    @classmethod
-    def get(cls) -> list:
-        return cls.instances
+   @classmethod
+   def get(cls) -> list:
+      return cls.instances
 
-    @classmethod
-    def find(cls, name: str):
-        for store in cls.instances:
-            if store.get_name() == name:
-                return store
+   @classmethod
+   def find(cls, name: str):
+      for store in cls.instances:
+         if store.get_name() == name:
+            return store
 
-        return None
+      return None
 
-    @classmethod
-    def create(cls, name: str, address: Tuple[int, int], tag: Tags,
-               description: str):
+   @classmethod
+   def create(cls, name: str, address: Tuple[int, int], tag: Tags,
+              description: str):
 
-        if cls.find(name) is not None:
-            return None
+      if cls.find(name) is not None:
+         return None
 
-        return Store(name, address, tag, description)
+      return cls(name, address, tag, description)
 
-    def update_settings(self, name, address, tag, description) -> str:
+   def update_settings(self, name, address, tag, description) -> str:
 
-        if not self.is_address_available(address):
-            raise errors.ErrorSystemOperation(
-                f"La direccion {address} ya está en uso. Recuerda que ninguno puede pasarse de 100")
+      if not self.is_address_available(address):
+         raise errors.ErrorSystemOperation(
+             f"La direccion {address} ya está en uso. Recuerda que ninguno puede pasarse de 100"
+         )
 
-        self.set_name(name)
-        self.set_address(address)
-        self.set_tag(tag)
-        self.set_description(description)
+      self.set_name(name)
+      self.set_address(address)
+      self.set_tag(tag)
+      self.set_description(description)
 
-        return "Se actualizó la configuración de la tienda correctamente"
+      return "Se actualizó la configuración de la tienda correctamente"
 
-    def serializar(self):
-        # Serializar la lista de instancias
-        with open('archivo_serializado.pkl', 'wb') as archivo:
-            pickle.dump(self, archivo)
+   def serializar(self):
+      # Serializar la lista de instancias
+      with open('archivo_serializado.pkl', 'wb') as archivo:
+         pickle.dump(self, archivo)
 
+   def set_tag(self, tag: Tags) -> None:
+      self._tag = tag
 
-    def set_tag(self, tag: Tags) -> None:
-        self._tag = tag
+   def get_description(self):
+      return self._description
 
-    def get_description(self):
-        return self._description
+   def set_description(self, description):
+      self._description = description
 
-    def set_description(self, description):
-        self._description = description
+   def get_balance(self) -> int:
+      return self._balance
 
-    def get_balance(self) -> int:
-        return self._balance
+   def set_balance(self, balance: int) -> None:
+      self._balance = balance
 
-    def set_balance(self, balance: int) -> None:
-        self._balance = balance
+   # def get_products(self):
+   #    return self._products
+   #
+   # def add_product(self, product) -> None:
+   #    self._products.append(product)
 
-    # def get_products(self):
-    #    return self._products
-    #
-    # def add_product(self, product) -> None:
-    #    self._products.append(product)
-
-    # def createProduct(self, name, price, description, quantity, tag):
-    #    newProduct = Product.create(name, price, description, quantity, tag)
-    #    if newProduct is None:
-    #       return Retval(
-    #           "Failed to create product. The product already exists inside the store",
-    #           False)
-    #
-    #    self.add_product(newProduct)
-    #
-    #    return Retval("Created product successfully!")
-
-    """
+   # def createProduct(self, name, price, description, quantity, tag):
+   #    newProduct = Product.create(name, price, description, quantity, tag)
+   #    if newProduct is None:
+   #       return Retval(
+   #           "Failed to create product. The product already exists inside the store",
+   #           False)
+   #
+   #    self.add_product(newProduct)
+   #
+   #    return Retval("Created product successfully!")
+   """
         class StoreSerializer:
             @staticmethod
             def serialize(stores):

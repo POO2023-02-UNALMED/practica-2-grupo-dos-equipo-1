@@ -30,7 +30,9 @@ class Admin(Entity):
    def update_settings(self, name, address) -> str:
 
       if not self.is_address_available(address):
-         raise errors.ErrorSystemOperation(f"La direccion {address} ya está en uso. Recuerda que ninguno puede pasarse de 100")
+         raise errors.ErrorSystemOperation(
+             f"La direccion {address} ya está en uso. Recuerda que ninguno puede pasarse de 100"
+         )
 
       self.set_name(name)
       self.set_address(address)

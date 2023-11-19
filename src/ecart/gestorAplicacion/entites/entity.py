@@ -9,7 +9,9 @@ class Entity:
    def __init__(self, name: str, address: Tuple[int, int]) -> None:
 
       if not self.is_address_available(address):
-         raise errors.ErrorSystemOperation(f"La direccion {address} ya está en uso. Recuerda que ninguno puede pasarse de 100")
+         raise errors.ErrorSystemOperation(
+             f"La direccion {address} ya está en uso. Recuerda que ninguno puede pasarse de 100"
+         )
 
       self._name = name
       self._address = address
@@ -23,7 +25,8 @@ class Entity:
       for address in Entity.addresses:
          if address[0] == _address[0] and address[1] == _address[1]:
             if self._address:
-               if self._address[0] == _address[0] and self._address[1] == _address[1]:
+               if self._address[0] == _address[0] and self._address[
+                   1] == _address[1]:
                   return True
 
             return False

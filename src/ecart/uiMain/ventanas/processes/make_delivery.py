@@ -30,9 +30,9 @@ class MakeDelivery(Base):
     def save_callback(self, form: FieldFrame, entries: dict) -> None:
         form.check_empty_values()
 
-        # Assuming you have a Delivery class with a method like create_delivery
+        # Assuming you have a Delivery class with a method like create
         ok, _ = errors.pcall(
-            lambda: Delivery.create_delivery(*entries.values())
+            lambda: Delivery.create.values())
         )
 
         if not ok:
@@ -42,7 +42,7 @@ class MakeDelivery(Base):
         self.setup_ui()
 
     def show_field_frame(self):
-        self.deliveries_pseudoframe.destroy()
+        self.instances_pseudoframe.destroy()
         self.add_button.destroy()
 
         form = FieldFrame(
@@ -72,10 +72,10 @@ class MakeDelivery(Base):
         # You can define a function to handle the delivery selection similar to set_current_store
         # and bind it to the label's click event
 
-        self.deliveries_pseudoframe.window_create("end", window=item)
+        self.instances_pseudoframe.window_create("end", window=item)
 
     def setup_ui(self):
-        self.deliveries_pseudoframe = ScrollableText(
+        self.instances_pseudoframe = ScrollableText(
             self,
             wrap="char",
             borderwidth=0,
@@ -84,7 +84,7 @@ class MakeDelivery(Base):
             cursor="arrow"
         )
 
-        for delivery in Delivery.get_all_deliveries():
+        for delivery in Delivery.get_all_instances():
             self.add_delivery_to_grid(delivery)
 
         self.add_button = tk.Button(
@@ -94,4 +94,4 @@ class MakeDelivery(Base):
         )
 
         self.add_button.pack(pady=(0, 10))
-        self.deliveries_pseudoframe.pack(fill="both", expand=True, padx=10)
+        self.instances_pseudoframe.pack(fill="both", expand=True, padx=10)
