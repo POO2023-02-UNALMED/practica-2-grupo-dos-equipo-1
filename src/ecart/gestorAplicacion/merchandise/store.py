@@ -66,6 +66,7 @@ class Store(Entity):
         with open('archivo_serializado.pkl', 'wb') as archivo:
             pickle.dump(self, archivo)
 
+
     def set_tag(self, tag: Tags) -> None:
         self._tag = tag
 

@@ -1,7 +1,41 @@
-from entity import Entity
+from ecart.gestorAplicacion.entites.entity import Entity
+from os import error
+from typing import Optional, Tuple
+
+from ecart.gestorAplicacion.merchandise.store import Store
+from ecart.gestorAplicacion.merchandise.tags import Tags
+from ecart.gestorAplicacion.merchandise.store import deserializar
+from .entity import Entity
+import ecart.gestorAplicacion.errors as errors
 
 
 class Delivery(Entity):
+    deliveries = []
+
+    def __init__(self, product_name, store_name, quantity, delivery_address, notes, name: str,
+                 address: Tuple[int, int]):
+        super().__init__(name, address)
+        self.product_name = product_name
+        self.store_name = store_name
+        self.quantity = quantity
+        self.delivery_address = delivery_address
+        self.notes = notes
+
+    @classmethod
+    def create_delivery(cls, product_name, store_name, quantity, delivery_address, notes):
+        delivery = cls(product_name, store_name, quantity, delivery_address, notes)
+        cls.deliveries.append(delivery)
+        return True, delivery
+
+    @classmethod
+    def get_all_deliveries(cls):
+        return cls.deliveries
+
+    def get_product_name(self):
+        return self.product_name
+
+
+"""
     instances = []
 
     def __init__(self, name, username=None):
@@ -23,3 +57,4 @@ class Delivery(Entity):
     def planRoute(self):  # Aquí va la lógica de cuál lleva primero y tales
         sequence = []  # Las ordenes en el órden optimo o luego miramos
         return sequence
+"""
