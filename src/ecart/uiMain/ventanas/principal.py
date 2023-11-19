@@ -178,13 +178,15 @@ class VentanaPrincipal(tk.Frame):
       procesos_menu.add_command(label="Choose Store",
                                 command=lambda: self.pick_process(ChooseStore))
       procesos_menu.add_command(label="Funcion 2",
-                                command=lambda: self.pick_process(ChooseStore))
+                                command=lambda: self.pick_process(ChooseStore)) # complex: make delivery
       procesos_menu.add_command(label="Funcion 3",
-                                command=lambda: self.pick_process(ChooseStore))
+                                command=lambda: self.pick_process(ChooseStore)) # complex: create order
       procesos_menu.add_command(label="Funcion 4",
-                                command=lambda: self.pick_process(ChooseStore))
+                                command=lambda: self.pick_process(ChooseStore)) # complex: report analytics
       procesos_menu.add_command(label="Funcion 5",
-                                command=lambda: self.pick_process(ChooseStore))
+                                command=lambda: self.pick_process(ChooseStore)) # complex: suggest product
+      procesos_menu.add_command(label="Funcion 5",
+                                command=lambda: self.pick_process(ChooseStore)) # complex: supplier management
 
       ayuda_menu.add_command(label="Acerca de", command=self.show_authors)
 
