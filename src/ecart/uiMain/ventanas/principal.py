@@ -4,6 +4,7 @@ from ecart.uiMain.utils import Utils
 from ecart.uiMain.commons import Commons
 from ecart.uiMain.helpers.msgbox_wrapper import MsgboxWrapper as MB
 from ecart.uiMain.helpers.scrollable_text import ScrollableText
+from ecart.uiMain.ventanas.processes.choose_store import ChooseStore
 import random
 
 
@@ -103,38 +104,7 @@ class VentanaPrincipal(tk.Frame):
                         fill="both")
 
    def setup_lower_zone(self) -> None:
-
-      icon = tk.PhotoImage(file=VentanaPrincipal.STORE_ICON)
-      stores_pseudoframe = ScrollableText(self.lower_zone,
-                                          wrap="char",
-                                          borderwidth=0,
-                                          highlightthickness=0,
-                                          state="disabled",
-                                          cursor="arrow")
-
-      def add_store_to_grid() -> None:
-
-         item = tk.Label(bd=5,
-                         padx=5,
-                         image=icon,
-                         text="Store Name",
-                         compound=tk.TOP,
-                         font=("Broadway", 18, "bold"),
-                         relief="solid",
-                         bg=random.choice(
-                             ("lightpink", "lightyellow", "lightgreen",
-                              "lightblue", "lightsalmon")))
-
-         item.bind("<Button-1>", lambda _: print("hello world"))
-         stores_pseudoframe.window_create(
-             "end", window=item)  # put it inside the pseudo frame
-
-      add_button = tk.Button(self.lower_zone,
-                             text="   Create Store   ",
-                             command=add_store_to_grid)
-
-      add_button.pack(pady=(0, 10))
-      stores_pseudoframe.pack(fill="both", expand=True, padx=10)
+      ChooseStore(self.lower_zone)
 
    def setup_welcome(self) -> None:
       self.configure_process_frame()
@@ -166,7 +136,7 @@ class VentanaPrincipal(tk.Frame):
 
       # se supone que los 'commands' van a ser de la forma:
       # command=lambda: self.configure_process_frame(Process1.start())
-      procesos_menu.add_command(label="Funcion 1", command=self.show_authors)
+      procesos_menu.add_command(label="Choose Store", command=self.show_authors)
       procesos_menu.add_command(label="Funcion 2", command=self.show_authors)
       procesos_menu.add_command(label="Funcion 3", command=self.show_authors)
       procesos_menu.add_command(label="Funcion 4", command=self.show_authors)

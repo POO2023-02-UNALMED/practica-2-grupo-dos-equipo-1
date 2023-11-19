@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class Tag(Enum):
+class Tags(Enum):
     ALIMENTOS = "🍎"
     HOGAR = "🏡"
     LIMPIEZA = "🧹"
@@ -9,7 +9,7 @@ class Tag(Enum):
     JUGUETES = "🎠"
 
     @classmethod
-    def get_tag_list(cls):
+    def get_list(cls):
         return [tag.value for tag in cls]
 
     @classmethod
@@ -17,4 +17,4 @@ class Tag(Enum):
         for tag in cls:
             if tag.value == tag_value:
                 return tag
-        return None  # Return None if the tag is not found in the enum
+        return None

@@ -1,6 +1,8 @@
+from collections.abc import Callable
 import tkinter as tk
-from typing import Any, Union
+from typing import Any, Tuple, Union
 from tkinter import ttk
+import string
 
 from ecart.uiMain.commons import Commons
 
@@ -14,9 +16,10 @@ class FieldFrame(tk.Frame):
          "Entries"
          [
             "Name",
-            ("Opinion", "no opinion"),
+            ("Description\n"), # text box
+            ("Opinion", "no opinion"), # normal Entry with default value
             ("ID", existing_id, True), # disable the field
-            ("Colors", ["red", "green", "blue"])
+            ("Colors", ["red", "green", "blue"]) # combobox
          ]
       )
 
@@ -24,29 +27,34 @@ class FieldFrame(tk.Frame):
       (mandatory, defaults: None, default: false)
    """
 
-   def __init__(self, master: tk.Misc, title: str, fieldsTitle: str,
-                entriesTitle: str, fields: list, *args, **kwargs):
+   def __init__(self, master: tk.Misc, title: str, fields_title: str,
+                entries_title: str, fields: list, save_callback: Callable,
+                *args, **kwargs):
       super().__init__(master, *args, **kwargs)
 
       if title:
-         tk.Label(self, text=title, font=Commons.TEXT_FONT_BOLD).pack(pady=10)
+         tk.Label(self, text=title, font=Commons.TEXT_FONT_B).pack(pady=10)
 
       self.form = tk.Frame(self, bg="lightblue")
       self.form.pack(expand=True, side="top", anchor="center")
       self.form.grid_columnconfigure(0, pad=20)
 
-      clear_button = tk.Button(self.form, text="   Borrar   ", command=self.clear)
-      save_button = tk.Button(self.form, text="   Guardar   ", command=self.save)
+      clear_button = tk.Button(self.form,
+                               text="   Borrar   ",
+                               command=self.clear_values)
+      save_button = tk.Button(self.form,
+                              text="   Guardar   ",
+                              command=lambda: self.get_values(save_callback))
 
-      if fieldsTitle:
-         tk.Label(self.form, text=fieldsTitle,
-                  font=Commons.TEXT_FONT_BOLD).grid(row=0, column=0)
+      if fields_title:
+         tk.Label(self.form, text=fields_title,
+                  font=Commons.TEXT_FONT_B).grid(row=0, column=0)
 
-      if entriesTitle:
-         tk.Label(self.form, text=entriesTitle,
-                  font=Commons.TEXT_FONT_BOLD).grid(row=0, column=1)
+      if entries_title:
+         tk.Label(self.form, text=entries_title,
+                  font=Commons.TEXT_FONT_B).grid(row=0, column=1, columnspan=3)
 
-      self._entries: dict[str, Union[tk.Entry, ttk.Combobox]] = {}
+      self._entries: dict[str, Union[tk.Entry, ttk.Combobox, tk.Text]] = {}
 
       for i, field in enumerate(fields, start=2):
          _field = list(field)
@@ -57,38 +65,81 @@ class FieldFrame(tk.Frame):
          if len(_field) < 2: _field.append(None)
          if len(_field) < 3: _field.append(False)
 
-         tk.Label(self.form, text=_field[0], justify="left",
+         tk.Label(self.form,
+                  text=_field[0],
+                  justify="left",
+                  font=Commons.TEXT_FONT_I,
                   anchor="w").grid(row=i + 1, column=0, sticky="w")
 
-         entry: Union[tk.Entry, ttk.Combobox] = tk.Entry(self.form)
+         entry: Union[tk.Entry, ttk.Combobox,
+                      tk.Text] = tk.Entry(self.form, font=("Broadway", 12))
 
-         if isinstance(_field[1], list):
-            entry = ttk.Combobox(self.form, values=_field[1])
+         if isinstance(_field[1], list):  # combobox
+
+            entry = ttk.Combobox(self.form,
+                                 values=_field[1],
+                                 font=("Broadway", 12))
 
             entry.set("Escoge uno")
-            entry.grid(row=i + 1, column=1, sticky="e")
             entry.bind("<<ComboboxSelected>>",
                        lambda _: entry.selection_clear())
-         else:
-            entry.grid(row=i + 1, column=1, sticky="e")
 
+            if _field[2]: entry.config(state="readonly")
+
+         elif _field[0].count("\n") > 0:  # text box
+
+            _field[0] = _field[0][:-1]
+
+            entry = tk.Text(self.form,
+                            height=10,
+                            width=20,
+                            wrap=tk.WORD,
+                            font=("Broadway", 12))
+
+            if _field[2]: entry.config(state="disabled")
+
+         else:  # simple entry
             if _field[1]:
                entry.insert(0, _field[1])
 
-         if _field[2]:
-            entry.config(state="readonly")
+            if _field[2]: entry.config(state="readonly")
+
+         entry.grid(row=i + 1,
+                    column=1,
+                    columnspan=3,
+                    pady=(10, 0),
+                    sticky="e")
 
          self._entries[_field[0]] = entry
 
       clear_button.grid(pady=(20, 0), row=len(fields) + 3, column=0)
-      save_button.grid(pady=(20, 0), row=len(fields) + 3, column=1)
+      save_button.grid(pady=(20, 0), row=len(fields) + 3, column=2)
 
-   def save(self) -> None:
-      pass
-
-   def clear(self) -> None:
-      for entry in self._entries.values():
+   def get_values(self, callback) -> None:
+      values = {}
+      for name, entry in self._entries.items():
+         value = ""
          if isinstance(entry, tk.Entry):
-            entry.delete(0, tk.END)
+            value = entry.get()
+
+         if isinstance(entry, ttk.Combobox):
+            value = entry.get()
+            if value == "Escoge uno": value = ""
+
+         if isinstance(entry, tk.Text):
+            value = entry.get(1.0, tk.END)
+            if value == "\n": value = ""
+            else: value = value[:-1]
+
+         values[name] = value
+
+      callback(values)
+
+   def clear_values(self) -> None:
+      for entry in self._entries.values():
+         if isinstance(entry, ttk.Combobox):
+            entry.set("Escoge uno")
+         elif isinstance(entry, tk.Text):
+            entry.delete("1.0", tk.END)
          else:
-            entry.set("")
+            entry.delete(0, tk.END)

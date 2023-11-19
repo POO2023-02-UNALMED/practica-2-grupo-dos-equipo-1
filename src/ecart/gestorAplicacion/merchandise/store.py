@@ -1,49 +1,70 @@
-from gestorAplicacion.entites.entity import Entity
-from transactions.retval import Retval
-from product import Product
+from typing import Tuple
+from ecart.gestorAplicacion.merchandise.tags import Tags
+from ecart.gestorAplicacion.entites.entity import Entity
 
 
 class Store(Entity):
-    
-    instances = []
 
-    def __init__(self, name, description, address):
-        super(name)
-        self._description = description
-        self._address = address
-        self._products = []
-        self._balance = 0
-        Store.instances.append(self)
+   instances = []
 
-    def getDescription(self):
-        return self._description
+   def __init__(self, name: str, address: Tuple[int, int], tag: Tags,
+                description: str):
 
-    def setDescription(self, description):
-        self._description = description
+      super().__init__(name, address)
 
-    def getAddress(self):
-        return self._address
+      self._description = description
+      self._tag = tag
+      self._balance = 0
+      # self._products: list[Product] = []
 
-    def setAddress(self, address):
-        self._address = address
+      Store.instances.append(self)
 
-    def getProducts(self):
-        return self._products
+   @classmethod
+   def get(cls) -> list:
+      return cls.instances
 
-    def addProduct(self, product):
-        self._products.append(product)
+   @classmethod
+   def find(cls, name: str):
+      for store in cls.instances:
+         if store.get_name() == name:
+            return store
 
-    def getBalance(self):
-        return self._balance
+      return None
 
-    def setBalance(self, balance):
-        self._balance = balance
+   @classmethod
+   def create(cls, name: str, address: Tuple[int, int], tag: Tags,
+              description: str):
 
-    def createProduct(self, name, price, description, quantity, tag):
-        newProduct = Product.create(name, price, description, quantity, tag)
-        if newProduct is None:
-            return Retval("Failed to create product. The product already exists inside the store", False)
+      if cls.find(name) is not None:
+         return None
 
-        self.addProduct(newProduct)
+      return Store(name, address, tag, description)
 
-        return Retval("Created product successfully!")
+   def get_description(self):
+      return self._description
+
+   def set_description(self, description):
+      self._description = description
+
+   def get_balance(self) -> int:
+      return self._balance
+
+   def set_balance(self, balance: int) -> None:
+      self._balance = balance
+
+   # def get_products(self):
+   #    return self._products
+   #
+   # def add_product(self, product) -> None:
+   #    self._products.append(product)
+
+   # def createProduct(self, name, price, description, quantity, tag):
+   #    newProduct = Product.create(name, price, description, quantity, tag)
+   #    if newProduct is None:
+   #       return Retval(
+   #           "Failed to create product. The product already exists inside the store",
+   #           False)
+   #
+   #    self.add_product(newProduct)
+   #
+   #    return Retval("Created product successfully!")

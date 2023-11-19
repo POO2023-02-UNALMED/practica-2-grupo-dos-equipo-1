@@ -1,7 +1,9 @@
 class Commons():
 
    TEXT_FONT = ("Broadway",12)
-   TEXT_FONT_BOLD = ("Broadway",12, "bold")
+   TEXT_FONT_B = ("Broadway",12, "bold")
+   TEXT_FONT_I = ("Broadway",12, "italic")
+   TEXT_FONT_BI = ("Broadway",12, "bold italic")
    TAG_FONT = ("Courier", 17, "bold")
 
    AUTHORS = {

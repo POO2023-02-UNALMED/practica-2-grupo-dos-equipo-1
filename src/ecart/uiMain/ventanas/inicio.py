@@ -8,11 +8,12 @@ from ecart.uiMain.helpers.msgbox_wrapper import MsgboxWrapper as MB
 
 
 class VentanaInicio(tk.Frame):
+
    def __init__(self, master: tk.Tk, *args, **kwargs) -> None:
 
       super().__init__(master, *args, **kwargs)
       self.master: tk.Tk = master
-      
+
       master.wm_title("Ecart - Inicio")
 
       self.setup_menubar()
@@ -22,7 +23,7 @@ class VentanaInicio(tk.Frame):
    @staticmethod
    def start(root: tk.Tk) -> tk.Frame:
       v = VentanaInicio(root)
-      v.pack(fill="both", side="top", expand = True)
+      v.pack(fill="both", side="top", expand=True)
 
       return v
 
@@ -34,9 +35,9 @@ class VentanaInicio(tk.Frame):
       tmp_frame = tk.Frame(self.p4)
       tmp_frame.pack(expand=True, fill="both")
 
-      system_description = Utils._build_label(tmp_frame,
-      
-         text=Utils.left_align("""📃 Descripcion del sistema 📚
+      system_description = Utils._build_label(
+          tmp_frame,
+          text=Utils.left_align("""📃 Descripcion del sistema 📚
 
 
             Gracias a nutra interfaz intuitiva y funcionalidades avanzadas,
@@ -49,8 +50,7 @@ class VentanaInicio(tk.Frame):
               3. Hacer entregas
               4. Sugerir productos
               5. Gestionar ingresos
-            """)
-      )
+            """))
 
       system_description.pack(expand=True, fill="both")
 
@@ -76,7 +76,8 @@ class VentanaInicio(tk.Frame):
       menubar.add_cascade(label="Inicio", menu=inicio_menu)
 
       inicio_menu.add_command(label="Salir", command=self.exit_program)
-      inicio_menu.add_command(label="Descripción", command=self.show_description)
+      inicio_menu.add_command(label="Descripción",
+                              command=self.show_description)
 
       self.master.config(menu=menubar)
 
@@ -100,21 +101,21 @@ class VentanaInicio(tk.Frame):
 
       current_biography = ""
 
-      biography_display = Utils._build_label(biography_frame, text=current_biography)
+      biography_display = Utils._build_label(biography_frame,
+                                             text=current_biography)
       biography_display.pack(expand=True, fill="x", padx=10, pady=10)
 
       def set_next_biography() -> None:
 
          author: Tuple = next(biographies)
 
-         biography_display.config(text=Utils.left_align(
-            f"""Hoja de Vida de los Autores
+         biography_display.config(
+             text=Utils.left_align(f"""Hoja de Vida de los Autores
             (haga click)
 
             🗯️ Nombre: {author[0]}
             📙 Semestre: {author[1]}
-            📃 Informacion: {author[2]}""")
-         )
+            📃 Informacion: {author[2]}"""))
 
       set_next_biography()
 
@@ -125,12 +126,22 @@ class VentanaInicio(tk.Frame):
       images_frame = tk.Frame(p6)
       images_frame.pack(expand=True)
 
-      self.current_images = [tk.PhotoImage(file=img_path) for img_path in Utils.get_images("authors", next(names))]
-      images_displays = [tk.Label(images_frame, text="hello", image=image) for image in self.current_images]
+      self.current_images = [
+          tk.PhotoImage(file=img_path)
+          for img_path in Utils.get_images("authors", next(names))
+      ]
+      images_displays = [
+          tk.Label(images_frame, text="hello", image=image)
+          for image in self.current_images
+      ]
 
       for i, display in enumerate(images_displays):
          row, col = divmod(i, 2)
-         display.grid(row=row, column=col, padx=(5, 0), pady=(5, 0), sticky="nsew")
+         display.grid(row=row,
+                      column=col,
+                      padx=(5, 0),
+                      pady=(5, 0),
+                      sticky="nsew")
 
       # configure row and column weights to center the cluster
       for i in range(2):
@@ -149,7 +160,6 @@ class VentanaInicio(tk.Frame):
 
       biography_display.bind("<Button-1>", lambda _: set_next_author())
 
-
    def setup_left_frameholder(self) -> None:
 
       left_zone = tk.Frame(self)
@@ -163,11 +173,11 @@ class VentanaInicio(tk.Frame):
       p3 = Utils._build_frame(p1)
       p3.pack(side="top", padx=10, pady=10, fill="x")
 
-      welcome_message = Utils._build_label(p3, text=Utils.left_align(
-         """🛍️ Bienvenido a Ecart 👷
+      welcome_message = Utils._build_label(
+          p3,
+          text=Utils.left_align("""🛍️ Bienvenido a Ecart 👷
          Ecart le permite gestionar todo sobre sus negocioes,
-         incluyendo sus mercancias, pedidos y personal""")
-      )
+         incluyendo sus mercancias, pedidos y personal"""))
 
       welcome_message.pack(expand=True, fill="x", padx=10, pady=10)
 
@@ -175,7 +185,7 @@ class VentanaInicio(tk.Frame):
       self.p4 = Utils._build_frame(p1)
       self.p4.pack(side="bottom", expand=True, padx=10, pady=10, fill="both")
 
-      self.configure_project_images() 
+      self.configure_project_images()
 
    # p4
    def configure_project_images(self) -> None:
@@ -196,12 +206,13 @@ class VentanaInicio(tk.Frame):
       image_display.pack(expand=True)
       image_display.bind("<Enter>", lambda _: set_next_image())
 
-
       # login button
       def ingresar() -> None:
-         self.master.config(menu=tk.Menu()) # destroy master menu
-         self.destroy() # destroy current frame
+         self.master.config(menu=tk.Menu())  # destroy master menu
+         self.destroy()  # destroy current frame
          VentanaPrincipal.start(self.master)
 
-      self.project_ingresar_button = tk.Button(self.p4, text="    Ingresar    ", command=ingresar)
+      self.project_ingresar_button = tk.Button(self.p4,
+                                               text="    Ingresar    ",
+                                               command=ingresar)
       self.project_ingresar_button.pack(side="bottom", padx=10, pady=10)
