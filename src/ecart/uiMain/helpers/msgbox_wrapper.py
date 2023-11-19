@@ -6,7 +6,7 @@ from typing import Any
 class MsgboxWrapper():
 
    @classmethod
-   def show(cls, message_type, message, parent = None) -> Any:
+   def show(cls, message_type, message, parent=None) -> Any:
 
       if message_type == "i":
          return messagebox.showinfo("Información", message, parent=parent)

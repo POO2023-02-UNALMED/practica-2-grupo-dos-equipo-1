@@ -1,13 +1,13 @@
 import tkinter as tk
 
-class ManageInventory(tk.Frame):
+class ManagePersonnel(tk.Frame):
    def __init__(self, master: tk.Misc) -> None:
       super().__init__(master)
 
       self.master = master
 
-      self.title = "Administrar Inventario"
-      self.description = "Aqui pueda crear, borrar y actualizar productos"
+      self.title = "Administrar Personal"
+      self.description = "Aqui pueda crear, borrar y actualizar a sus empleados"
 
       self.setup_ui()
 

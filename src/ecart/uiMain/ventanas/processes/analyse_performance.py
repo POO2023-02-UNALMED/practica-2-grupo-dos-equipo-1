@@ -1,15 +1,16 @@
 import tkinter as tk
 
-class ManageInventory(tk.Frame):
+class AnalysePerformance(tk.Frame):
    def __init__(self, master: tk.Misc) -> None:
       super().__init__(master)
 
       self.master = master
 
-      self.title = "Administrar Inventario"
-      self.description = "Aqui pueda crear, borrar y actualizar productos"
+      self.title = "Analizar Rendimiento"
+      self.description = "Aqui puede ver como ha sido en rendimiento de su negocio"
 
       self.setup_ui()
 
    def setup_ui(self):
       pass
+

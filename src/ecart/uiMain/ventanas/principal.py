@@ -7,8 +7,16 @@ from ecart.uiMain.utils import Utils
 from ecart.uiMain.commons import Commons
 from ecart.uiMain.helpers.msgbox_wrapper import MsgboxWrapper as MW
 from ecart.uiMain.helpers.scrollable_text import ScrollableText
+from ecart.uiMain.ventanas.processes.analyse_performance import AnalysePerformance
 from ecart.uiMain.ventanas.processes.choose_store import ChooseStore
 import random
+from ecart.uiMain.ventanas.processes.make_delivery import MakeDelivery
+
+from ecart.uiMain.ventanas.processes.manage_inventory import ManageInventory
+from ecart.uiMain.ventanas.processes.manage_orders import ManageOrders
+from ecart.uiMain.ventanas.processes.manage_personnel import ManagePersonnel
+from ecart.uiMain.ventanas.processes.manage_suppliers import ManageSuppliers
+from ecart.uiMain.ventanas.processes.update_settings import UpdateSettings
 
 
 class VentanaPrincipal(tk.Frame):
@@ -173,19 +181,29 @@ class VentanaPrincipal(tk.Frame):
                                command=self.show_description)
       archivo_menu.add_command(label="Salir", command=self.regresar_inicio)
 
-
-      procesos_menu.add_command(label="Choose Store",
+      procesos_menu.add_command(label="Escoger Tienda",
                                 command=lambda: self.pick_process(ChooseStore))
-      procesos_menu.add_command(label="Funcion 2",
-                                command=lambda: self.pick_process(ChooseStore)) # complex: make delivery
-      procesos_menu.add_command(label="Funcion 3",
-                                command=lambda: self.pick_process(ChooseStore)) # complex: create order
-      procesos_menu.add_command(label="Funcion 4",
-                                command=lambda: self.pick_process(ChooseStore)) # complex: report analytics
-      procesos_menu.add_command(label="Funcion 5",
-                                command=lambda: self.pick_process(ChooseStore)) # complex: suggest product
-      procesos_menu.add_command(label="Funcion 5",
-                                command=lambda: self.pick_process(ChooseStore)) # complex: supplier management
+      procesos_menu.add_command(
+          label="Administrar Inventario",
+          command=lambda: self.pick_process(ManageInventory))
+      procesos_menu.add_command(
+          label="Administrar Personal",
+          command=lambda: self.pick_process(ManagePersonnel))
+      procesos_menu.add_command(
+          label="Administrar Ordenes",
+          command=lambda: self.pick_process(ManageOrders))
+      procesos_menu.add_command(
+          label="Hacer Delivery",
+          command=lambda: self.pick_process(MakeDelivery))
+      procesos_menu.add_command(
+          label="Analizar Rendimiento",
+          command=lambda: self.pick_process(AnalysePerformance))
+      procesos_menu.add_command(
+          label="Administrar Proveedores",
+          command=lambda: self.pick_process(ManageSuppliers))
+      procesos_menu.add_command(
+          label="Actualizar Configuraciones",
+          command=lambda: self.pick_process(UpdateSettings))
 
       ayuda_menu.add_command(label="Acerca de", command=self.show_authors)
 
