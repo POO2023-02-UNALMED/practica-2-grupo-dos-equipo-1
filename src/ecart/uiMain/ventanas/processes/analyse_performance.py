@@ -1,16 +1,14 @@
 import tkinter as tk
 
-class AnalysePerformance(tk.Frame):
+from ecart.uiMain.ventanas.processes.base import Base
+
+
+class AnalysePerformance(Base):
+
    def __init__(self, master: tk.Misc) -> None:
-      super().__init__(master)
-
-      self.master = master
-
-      self.title = "Analizar Rendimiento"
-      self.description = "Aqui puede ver como ha sido en rendimiento de su negocio"
-
-      self.setup_ui()
+      super().__init__(
+          master, "Analizar Rendimiento",
+          "Aqui puede ver como ha sido en rendimiento de su negocio")
 
    def setup_ui(self):
       pass
-

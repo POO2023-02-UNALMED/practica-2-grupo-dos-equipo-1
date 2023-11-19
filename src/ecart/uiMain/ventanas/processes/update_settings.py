@@ -1,16 +1,13 @@
 import tkinter as tk
 
-class UpdateSettings(tk.Frame):
+from ecart.uiMain.ventanas.processes.base import Base
+
+
+class UpdateSettings(Base):
+
    def __init__(self, master: tk.Misc) -> None:
-      super().__init__(master)
-
-      self.master = master
-
-      self.title = "Actualizar Configuraciones"
-      self.description = "Aqui puede actualizar sus configuraciones"
-
-      self.setup_ui()
+      super().__init__(master, "Actualizar Configuraciones",
+                       "Aqui puede actualizar sus configuraciones")
 
    def setup_ui(self):
       pass
-

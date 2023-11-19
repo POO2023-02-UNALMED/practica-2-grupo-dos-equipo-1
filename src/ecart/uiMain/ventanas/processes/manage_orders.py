@@ -1,16 +1,13 @@
 import tkinter as tk
 
-class ManageOrders(tk.Frame):
+from ecart.uiMain.ventanas.processes.base import Base
+
+
+class ManageOrders(Base):
+
    def __init__(self, master: tk.Misc) -> None:
-      super().__init__(master)
-
-      self.master = master
-
-      self.title = "Administrar Ordenes"
-      self.description = "Aqui pueda crear, borrar y actualizar sus ordenes"
-
-      self.setup_ui()
+      super().__init__(master, "Administrar Ordenes",
+                       "Aqui pueda crear, borrar y actualizar sus ordenes")
 
    def setup_ui(self):
       pass
-

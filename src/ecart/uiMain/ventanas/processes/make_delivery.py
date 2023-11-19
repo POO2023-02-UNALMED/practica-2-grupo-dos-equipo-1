@@ -1,16 +1,13 @@
 import tkinter as tk
 
-class MakeDelivery(tk.Frame):
+from ecart.uiMain.ventanas.processes.base import Base
+
+
+class MakeDelivery(Base):
+
    def __init__(self, master: tk.Misc) -> None:
-      super().__init__(master)
-
-      self.master = master
-
-      self.title = "Hacer Delivery"
-      self.description = "Aqui puede asignar deliveries a sus empleados"
-
-      self.setup_ui()
+      super().__init__(master, "Hacer Delivery",
+                       "Aqui puede asignar deliveries a sus empleados")
 
    def setup_ui(self):
       pass
-

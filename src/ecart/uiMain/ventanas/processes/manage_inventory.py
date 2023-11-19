@@ -1,15 +1,13 @@
 import tkinter as tk
 
-class ManageInventory(tk.Frame):
+from ecart.uiMain.ventanas.processes.base import Base
+
+
+class ManageInventory(Base):
+
    def __init__(self, master: tk.Misc) -> None:
-      super().__init__(master)
-
-      self.master = master
-
-      self.title = "Administrar Inventario"
-      self.description = "Aqui pueda crear, borrar y actualizar productos"
-
-      self.setup_ui()
+      super().__init__(master, "Administrar Inventario",
+                       "Aqui pueda crear, borrar y actualizar productos")
 
    def setup_ui(self):
       pass

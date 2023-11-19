@@ -10,8 +10,10 @@ from ecart.uiMain.helpers.msgbox_wrapper import MsgboxWrapper as MW
 import ecart.gestorAplicacion.errors as errors
 import random
 
+from ecart.uiMain.ventanas.processes.base import Base
 
-class ChooseStore(tk.Frame):
+
+class ChooseStore(Base):
 
    STORE_ICON = Utils.get_file("assets", "store.png")
    FORM = [
@@ -20,15 +22,11 @@ class ChooseStore(tk.Frame):
    ]
 
    def __init__(self, master: tk.Misc) -> None:
-      super().__init__(master)
-
-      self.master = master
-
       self._icon = tk.PhotoImage(file=ChooseStore.STORE_ICON)
-      self.title = "Escoger Tienda"
-      self.description = "Aqui pueda cambiar de tiendas y escoger cual quiere administrar"
 
-      self.setup_ui()
+      super().__init__(
+          master, "Escoger Tienda",
+          "Aqui pueda cambiar de tiendas y escoger cual quiere administrar")
 
    def show_field_frame(self):
 

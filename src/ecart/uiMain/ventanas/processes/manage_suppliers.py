@@ -1,16 +1,13 @@
 import tkinter as tk
 
-class ManageSuppliers(tk.Frame):
+from ecart.uiMain.ventanas.processes.base import Base
+
+
+class ManageSuppliers(Base):
+
    def __init__(self, master: tk.Misc) -> None:
-      super().__init__(master)
-
-      self.master = master
-
-      self.title = "Administrar Proveedores"
-      self.description = "Aqui puede distribuir recursos entre sus tiendas"
-
-      self.setup_ui()
+      super().__init__(master, "Administrar Proveedores",
+                       "Aqui puede distribuir recursos entre sus tiendas")
 
    def setup_ui(self):
       pass
-
