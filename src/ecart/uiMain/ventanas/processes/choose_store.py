@@ -28,42 +28,36 @@ class ChooseStore(Base):
           master, "Escoger Tienda",
           "Aqui pueda cambiar de tiendas y escoger cual quiere administrar")
 
+   def save_callback(self, form: FieldFrame, entries: dict) -> None:
+
+      form.check_empty_values()
+
+      calle = entries["Calle"]
+      carrera = entries["Carrera"]
+
+      try:
+         entries["Calle"] = (int(calle), int(carrera))
+      except Exception:
+         errors.display(
+             errors.ErrorInputType(
+                 "Calle y Carrera solo pueden recibir numeros"))
+         return
+
+      entries.pop("Carrera")
+
+      entries["Tag"] = Tags.get_entry_for_tag(entries["Tag"])
+
+      ok, _ = errors.pcall(
+          lambda: Admin.current.create_store(*entries.values()))
+      if not ok: return
+
+      form.destroy()
+      self.setup_ui()
+
    def show_field_frame(self):
 
       self.stores_pseudoframe.destroy()
       self.add_button.destroy()
-
-      def save_callback(entries: dict):
-         missing_values = ""
-         for name, value in entries.items():
-            if value == "":
-               missing_values += f"'{name}', "
-
-         if missing_values != "":
-            raise errors.ErrorInputEmpty(
-                f"the following values are missing: {missing_values}")
-
-         calle = entries["Calle"]
-         carrera = entries["Carrera"]
-
-         try:
-            entries["Calle"] = (int(calle), int(carrera))
-         except Exception:
-            errors.display(
-                errors.ErrorInputType(
-                    "Calle y Carrera solo pueden recibir numeros"))
-            return
-
-         entries.pop("Carrera")
-
-         entries["Tag"] = Tags.get_entry_for_tag(entries["Tag"])
-
-         ok, _ = errors.pcall(
-             lambda: Admin.current.create_store(*entries.values()))
-         if not ok: return
-
-         form.destroy()
-         self.setup_ui()
 
       form = FieldFrame(
           master=self,
@@ -71,7 +65,7 @@ class ChooseStore(Base):
           fields_title="Propiedades",
           entries_title="Valores",
           fields=ChooseStore.FORM,
-          save_callback=lambda input: errors.pcall(save_callback, input))
+          save_callback=lambda input: errors.pcall(self.save_callback, form, input))
       form.pack(expand=True, fill="both")
 
    def add_store_to_grid(self, store: Store) -> None:

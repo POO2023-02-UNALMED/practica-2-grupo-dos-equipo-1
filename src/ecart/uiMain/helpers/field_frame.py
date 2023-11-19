@@ -3,6 +3,7 @@ import tkinter as tk
 from typing import Any, Tuple, Union
 from tkinter import ttk
 import string
+from ecart.gestorAplicacion import errors
 
 from ecart.uiMain.commons import Commons
 
@@ -98,6 +99,9 @@ class FieldFrame(tk.Frame):
                             wrap=tk.WORD,
                             font=("Broadway", 12))
 
+            if _field[1]:
+               entry.insert(tk.END, _field[1])
+
             if _field[2]: entry.config(state="disabled")
 
          else:  # simple entry
@@ -117,7 +121,7 @@ class FieldFrame(tk.Frame):
       clear_button.grid(pady=(20, 0), row=len(fields) + 3, column=0)
       save_button.grid(pady=(20, 0), row=len(fields) + 3, column=2)
 
-   def get_values(self, callback) -> None:
+   def get_typed_values(self) -> dict:
       values = {}
       for name, entry in self._entries.items():
          value = ""
@@ -135,7 +139,21 @@ class FieldFrame(tk.Frame):
 
          values[name] = value
 
+      return values
+
+   def get_values(self, callback) -> None:
+      values = self.get_typed_values()
       callback(values)
+
+   def check_empty_values(self) -> None:
+      missing_values = ""
+      for name, value in self.get_typed_values().items():
+         if value == "":
+            missing_values += f"'{name}', "
+
+      if missing_values != "":
+         raise errors.ErrorInputEmpty(
+             f"the following values are missing: {missing_values}")
 
    def clear_values(self) -> None:
       for entry in self._entries.values():

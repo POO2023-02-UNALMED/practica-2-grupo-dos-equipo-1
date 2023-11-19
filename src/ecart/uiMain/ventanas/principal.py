@@ -129,14 +129,14 @@ class VentanaPrincipal(tk.Frame):
       self.setup_upper_zone()
       self.setup_lower_zone()
 
-   def pick_process(self, Process) -> None:
+   def pick_process(self, Process, *args, **kwargs) -> None:
 
       if not Admin.current.get_current_store():
          MW.show("w", "Necesita primero escoger una tienda para administrar")
          return
 
       self.configure_process_frame(True)
-      f = Process(self.process_frame)
+      f = Process(self.process_frame, *args, **kwargs)
 
       color = random.choice(
           ("pink", "yellow", "green", "blue", "salmon", "violet"))
@@ -173,9 +173,9 @@ class VentanaPrincipal(tk.Frame):
       procesos_menu = tk.Menu(menubar, tearoff=False)
       ayuda_menu = tk.Menu(menubar, tearoff=False)
 
-      menubar.add_cascade(label="Archivo", menu=archivo_menu)
-      menubar.add_cascade(label="Procesos y Consultas", menu=procesos_menu)
-      menubar.add_cascade(label="Ayuda", menu=ayuda_menu)
+      menubar.add_cascade(label="Archivo", menu=archivo_menu, activebackground="lightblue")
+      menubar.add_cascade(label="Procesos y Consultas", menu=procesos_menu, activebackground="lightblue")
+      menubar.add_cascade(label="Ayuda", menu=ayuda_menu, activebackground="lightblue")
 
       archivo_menu.add_command(label="Aplicación",
                                command=self.show_description)
@@ -201,9 +201,17 @@ class VentanaPrincipal(tk.Frame):
       procesos_menu.add_command(
           label="Administrar Proveedores",
           command=lambda: self.pick_process(ManageSuppliers))
-      procesos_menu.add_command(
-          label="Actualizar Configuraciones",
-          command=lambda: self.pick_process(UpdateSettings))
+
+      update_settings_submenu = tk.Menu(procesos_menu, tearoff=False)
+      procesos_menu.add_cascade(label="Actualizar Configuraciones", menu=update_settings_submenu)
+
+      update_settings_submenu.add_command(
+          label="Administrador",
+          command=lambda: self.pick_process(UpdateSettings, "admin"))
+
+      update_settings_submenu.add_command(
+          label="Tienda",
+          command=lambda: self.pick_process(UpdateSettings, "store"))
 
       ayuda_menu.add_command(label="Acerca de", command=self.show_authors)
 

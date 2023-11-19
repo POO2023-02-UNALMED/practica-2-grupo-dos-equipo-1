@@ -26,6 +26,16 @@ class Admin(Entity):
 
       return "Se ha creado la tienda correctamente"
 
+   def update_settings(self, name, address) -> str:
+
+      if not self.is_address_available(address):
+         raise errors.ErrorSystemOperation(f"La direccion {address} ya está en uso. Recuerda que ninguno puede pasarse de 100")
+
+      self.set_name(name)
+      self.set_address(address)
+
+      return "Se actualizó la configuración del administrador correctamente"
+
    def set_current_store(self, current_store: Store) -> None:
       self._current_store = current_store
 
