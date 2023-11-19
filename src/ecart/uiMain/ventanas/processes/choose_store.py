@@ -29,7 +29,6 @@ class ChooseStore(tk.Frame):
       self.description = "Aqui pueda cambiar de tiendas y escoger cual quiere administrar"
 
       self.setup_ui()
-      self.pack(expand=True, fill="both")
 
    def show_field_frame(self):
 
@@ -83,13 +82,20 @@ class ChooseStore(tk.Frame):
                       image=self._icon,
                       text=store.get_name(),
                       compound=tk.TOP,
-                      font=Commons.TAG_FONT,
+                      font=Commons.HEADER_FONT,
                       relief="solid",
                       bg=random.choice(
                           ("lightpink", "lightyellow", "lightgreen",
                            "lightblue", "lightsalmon")))
 
-      item.bind("<Button-1>", lambda _: print("hello world"))
+      def set_current_store():
+         Admin.current.set_current_store(store)
+         MW.show(
+             "i",
+             f"Bien! la tienda actual ahora es: {store.get_name()}\nYa puedes acceder a los otros procesos"
+         )
+
+      item.bind("<Button-1>", lambda _: set_current_store())
 
       # put it inside the pseudo frame
       self.stores_pseudoframe.window_create("end", window=item)

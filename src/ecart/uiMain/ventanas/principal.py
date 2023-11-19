@@ -1,8 +1,11 @@
 import tkinter as tk
+from typing import Optional
+from ecart.gestorAplicacion.entites.admin import Admin
+from ecart.gestorAplicacion.merchandise.store import Store
 
 from ecart.uiMain.utils import Utils
 from ecart.uiMain.commons import Commons
-from ecart.uiMain.helpers.msgbox_wrapper import MsgboxWrapper as MB
+from ecart.uiMain.helpers.msgbox_wrapper import MsgboxWrapper as MW
 from ecart.uiMain.helpers.scrollable_text import ScrollableText
 from ecart.uiMain.ventanas.processes.choose_store import ChooseStore
 import random
@@ -29,10 +32,9 @@ class VentanaPrincipal(tk.Frame):
 
       return v
 
-   def configure_process_frame(self, new_frame=None, do_switch=False) -> None:
+   def configure_process_frame(self, do_switch=False) -> None:
 
-      if new_frame is None:
-         new_frame = Utils._build_frame(self)
+      new_frame = Utils._build_frame(self)
 
       if do_switch:
          self.process_frame.destroy()
@@ -55,7 +57,7 @@ class VentanaPrincipal(tk.Frame):
 
    def regresar_inicio(self) -> None:
 
-      should_return = MB.show("ay",
+      should_return = MW.show("ay",
                               "Estas seguro que deseas regresar al inicio?",
                               self)
       if should_return:
@@ -76,7 +78,7 @@ class VentanaPrincipal(tk.Frame):
 
          msg += f"🤵 {a[0]}: {a[2]}\n"
 
-      MB.show("i", msg[:-1], self)
+      MW.show("i", msg[:-1], self)
 
    def show_description(self) -> None:
 
@@ -88,13 +90,13 @@ class VentanaPrincipal(tk.Frame):
 
         ¡Gracias por ser parte de ECart!""")
 
-      MB.show("i", info, self)
+      MW.show("i", info, self)
 
    def setup_upper_zone(self) -> None:
 
       banner_label = tk.Label(self.upper_zone,
                               text=VentanaPrincipal.BANNER,
-                              font=Commons.TAG_FONT,
+                              font=Commons.HEADER_FONT,
                               bg="lightsteelblue")
 
       banner_label.pack(side="bottom",
@@ -104,7 +106,8 @@ class VentanaPrincipal(tk.Frame):
                         fill="both")
 
    def setup_lower_zone(self) -> None:
-      ChooseStore(self.lower_zone)
+      f = ChooseStore(self.lower_zone)
+      f.pack(expand=True, fill="both")
 
    def setup_welcome(self) -> None:
       self.configure_process_frame()
@@ -117,6 +120,41 @@ class VentanaPrincipal(tk.Frame):
 
       self.setup_upper_zone()
       self.setup_lower_zone()
+
+   def pick_process(self, Process) -> None:
+
+      if not Admin.current.get_current_store():
+         MW.show("w", "Necesita primero escoger una tienda para administrar")
+         return
+
+      self.configure_process_frame(True)
+      f = Process(self.process_frame)
+
+      color = random.choice(
+          ("pink", "yellow", "green", "blue", "salmon", "violet"))
+
+      title_frame = tk.Frame(self.process_frame,
+                             highlightthickness=3,
+                             highlightbackground=color)
+      description_frame = tk.Frame(self.process_frame,
+                                   highlightthickness=3,
+                                   highlightbackground=color)
+
+
+      store: Store | None = Admin.current.get_current_store()
+
+      title = tk.Label(title_frame, text=f"{f.title}\n({store.get_name() if store else ''})", font=Commons.HEADER_FONT)
+      description = tk.Label(description_frame,
+                             text=f.description,
+                             font=Commons.DESC_FONT)
+
+
+      title_frame.pack(pady=(10, 5))
+      description_frame.pack(pady=(0, 10))
+
+      title.pack(expand=True, fill="both")
+      description.pack(expand=True, fill="both")
+      f.pack(expand=True, fill="both")
 
    def setup_menubar(self) -> None:
 
@@ -136,7 +174,8 @@ class VentanaPrincipal(tk.Frame):
 
       # se supone que los 'commands' van a ser de la forma:
       # command=lambda: self.configure_process_frame(Process1.start())
-      procesos_menu.add_command(label="Choose Store", command=self.show_authors)
+      procesos_menu.add_command(label="Choose Store",
+                                command=lambda: self.pick_process(ChooseStore))
       procesos_menu.add_command(label="Funcion 2", command=self.show_authors)
       procesos_menu.add_command(label="Funcion 3", command=self.show_authors)
       procesos_menu.add_command(label="Funcion 4", command=self.show_authors)

@@ -8,7 +8,7 @@ class ErrorAplicacion(Exception):
 
 
 def display(error: Optional[Union[Type[Exception], Exception]] = None) -> None:
-   MW.show("w", str(error))
+   MW.show("e", str(error))
 
 def pcall(fn: Callable, *args, **kwargs) -> Tuple[bool, *tuple[Any, ...]]:
 
@@ -19,6 +19,7 @@ def pcall(fn: Callable, *args, **kwargs) -> Tuple[bool, *tuple[Any, ...]]:
          MW.show("i", retval[0])
 
       return ok, *retval
+
    except Exception as e:
       display(e)
       return False, str(e)

@@ -1,5 +1,5 @@
 from os import error
-from typing import Tuple
+from typing import Optional, Tuple
 
 from ecart.gestorAplicacion.merchandise.store import Store
 from ecart.gestorAplicacion.merchandise.tags import Tags
@@ -12,7 +12,7 @@ class Admin(Entity):
    def __init__(self, name, address):
 
       super().__init__(name, address)
-      self._current_store: Store
+      self._current_store: Store | None = None
 
       Admin.current: Admin = self
 
@@ -26,17 +26,10 @@ class Admin(Entity):
 
       return "Se ha creado la tienda correctamente"
 
-   def set_current_store(self, current_store_name: str) -> None:
+   def set_current_store(self, current_store: Store) -> None:
+      self._current_store = current_store
 
-      store_found = Store.find(current_store_name)
-
-      if store_found:
-         self._current_store = store_found
-      else:
-         raise errors.ErrorSystemOperation(
-             "No se pudo encontrar la tienda seleccionada")
-
-   def get_current_store(self) -> Store:
+   def get_current_store(self) -> Optional[Store]:
       return self._current_store
 
    # # Las funciones que siguen son como para tener una idea de lo que podrá hacer el admin
