@@ -173,8 +173,7 @@ class VentanaPrincipal(tk.Frame):
                                command=self.show_description)
       archivo_menu.add_command(label="Salir", command=self.regresar_inicio)
 
-      # se supone que los 'commands' van a ser de la forma:
-      # command=lambda: self.configure_process_frame(Process1.start())
+
       procesos_menu.add_command(label="Choose Store",
                                 command=lambda: self.pick_process(ChooseStore))
       procesos_menu.add_command(label="Funcion 2",
