@@ -1,48 +1,44 @@
 class Product:
 
-    instances = []
+   def __init__(self, name: str, price: float, quantity: int, description: str):
 
-    def __init__(self, name=None, price=None, description=None, quantity=None, tags=None):
-        self._name = name
-        self._price = price
-        self._description = description
-        self._quantity = quantity
-        if tags is None:
-            tags = []
-        self._tags = tags
-        self._listed = True
-        Product.instances.append(self)
+      self._name = name
+      self._price = price
+      self._quantity = quantity
+      self._description = description
 
-    def getName(self):
-        return self._name
+   @classmethod
+   def find(cls, name: str, arr):
+      for product in arr:
+         if product.get_name() == name:
+            return product
 
-    def setName(self, name):
-        self._name = name
+      return None
 
-    def getPrice(self):
-        return self._price
+   @classmethod
+   def create(cls, name: str, price: float, quantity: int, description: str):
+      return cls(name, price, quantity, description)
 
-    def setPrice(self, price):
-        self._price = price
+   def get_name(self):
+      return self._name
 
-    def getDescription(self):
-        return self._description
+   def set_name(self, name):
+      self._name = name
 
-    def setDescription(self, description):
-        self._description = description
+   def get_nrice(self):
+      return self._price
 
-    def getQuantity(self):
-        return self._quantity
+   def set_price(self, price):
+      self._price = price
 
-    def setQuantity(self, quantity):
-        self._quantity = quantity
+   def get_description(self):
+      return self._description
 
-    def getTags(self):
-        return self._tags
+   def set_description(self, description):
+      self._description = description
 
-    def setTags(self, tags):
-        self._tags = tags
+   def get_quantity(self):
+      return self._quantity
 
-    @staticmethod
-    def create(name, price, description, quantity, tag):
-        return Product(name, price, description, quantity, tag)
+   def set_quantity(self, quantity):
+      self._quantity = quantity

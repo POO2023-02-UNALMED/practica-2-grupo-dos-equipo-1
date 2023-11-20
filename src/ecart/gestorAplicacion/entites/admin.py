@@ -21,7 +21,7 @@ class Admin(Entity):
    def create_delivery(self, name: str, address: Tuple[int, int]):
 
       if self._current_store:
-         new_delivery = Delivery.create(name, address, self._current_store)
+         new_delivery = Delivery.create(name, address, self._current_store, self._current_store.get_deliveries())
          if new_delivery is None:
             raise errors.ErrorSystemOperation(
                 "Ya existe un delivery on ese nombre")
@@ -30,9 +30,7 @@ class Admin(Entity):
 
    def delete_delivery(self, delivery: Delivery):
       if self._current_store:
-         self._current_store.set_deliveries(
-             self._current_store.get_deliveries().remove(delivery))
-         Delivery.instances.remove(delivery)
+         self._current_store.get_deliveries().remove(delivery)
 
          return "Se ha borrado el delivery con exito"
 
