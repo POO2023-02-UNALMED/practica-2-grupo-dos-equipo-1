@@ -54,16 +54,30 @@ class Store(Entity):
 
       return cls(name, address, tag, description)
 
+   def get_order_by_id(self, id: int):
+      for order in self._orders:
+         if order.getId() == id:
+            return order
+
+      raise errors.ErrorSystemActivity("No se pudo encontrar una orden con ese ID")
+
    def get_orders(self) -> list[Order]:
       return self._orders
 
    def create_order(self, products: dict[str, int], destination_address: Tuple[int ,int]):
-      o = Order(products, destination_address)
+      o = Order(products, destination_address, self.get_address())
       self._orders.append(o)
 
    def get_products(self) -> list[Product]:
       return self._products
 
+   def get_product_by_name(self, name):
+      for product in self._products:
+         if product.get_name() == name:
+            return product
+      
+      return None
+      
    def create_product(self, name: str, price: float, quantity: int, description: str):
       p = Product(name, price, quantity, description)
       self._products.append(p)

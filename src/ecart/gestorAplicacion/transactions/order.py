@@ -4,9 +4,11 @@ from ecart.gestorAplicacion.merchandise.product import Product
 class Order:
    instances = []
 
-   def __init__(self, products: dict[str, int], destinationAddress):
+   def __init__(self, products: dict[str, int], destinationAddress, origin_address):
       self._products = products
       self._destinationAddress = destinationAddress
+      self._origin_address = origin_address
+
       self._totalPrice = 0
       self._delivered = False
       self._deliveryPrice = 0
@@ -18,7 +20,16 @@ class Order:
       self.setProducts(products)
       self.setDestinationAddress(destinationAddress)
 
-   def getProducts(self):
+   def get_origin_address(self):
+      return self._origin_address
+
+   def is_delivered(self):
+      return self._delivered
+
+   def set_delivered(self, delivered):
+      self._delivered = delivered
+
+   def getProducts(self) -> dict[str, int]:
       return self._products
 
    def setProducts(self, products):

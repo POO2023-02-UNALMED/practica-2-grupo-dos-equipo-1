@@ -301,7 +301,7 @@ class ManageSuppliers(Base):
          curr_store = Admin.current.get_current_store()
          if curr_store:
             for order in orders:
-               if order.getDestinationAddress() == curr_store.get_address():
+               if order.getDestinationAddress() == curr_store.get_address() and not order.isDelivered():
                   final_orders.append(order)
 
          return final_orders

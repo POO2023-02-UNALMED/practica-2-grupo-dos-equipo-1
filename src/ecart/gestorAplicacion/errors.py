@@ -45,3 +45,7 @@ class ErrorSystem(ErrorAplicacion):
 class ErrorSystemOperation(ErrorSystem):
     def __init__(self, msg: str) -> None:
         super().__init__("invalid operation", msg)
+
+class ErrorSystemActivity(ErrorSystem):
+    def __init__(self, msg: str) -> None:
+        super().__init__("background activity", msg)

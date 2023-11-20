@@ -270,10 +270,11 @@ class ManageOrders(Base):
       orders = admin.get_current_store_orders()
       if orders is not None:
          for order in orders:
-            self.add_to_grid(
-                f"(ID: {order.getId()}) {order.getDestinationAddress()}",
-                self._boxes_icon, self.orders_pseudoframe, set_current_order,
-                order)
+            if not order.isDelivered():
+               self.add_to_grid(
+                   f"(ID: {order.getId()}) {order.getDestinationAddress()}",
+                   self._boxes_icon, self.orders_pseudoframe, set_current_order,
+                   order)
 
       self.selected_order = tk.Label(self.header_frame,
                                      text="Orden seleccionada: ninguno",
