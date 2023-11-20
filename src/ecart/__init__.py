@@ -16,6 +16,9 @@ def main() -> None:
    if s:
       a.set_current_store(s)
    a.create_delivery("Pedro", (99, 99))
+   a.create_product("Manzana", 10.0, 100, "super cool fruit")
+   a.create_product("Pera", 5.0, 100, "super cool fruit")
+   a.create_product("Mango", 8.0, 100, "super cool fruit")
    
 
    VentanaInicio.start(ROOT)

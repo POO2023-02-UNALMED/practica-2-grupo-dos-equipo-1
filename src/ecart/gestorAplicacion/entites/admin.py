@@ -6,6 +6,7 @@ from ecart.gestorAplicacion.merchandise.product import Product
 from ecart.gestorAplicacion.merchandise.store import Store
 from ecart.gestorAplicacion.merchandise.tags import Tags
 from ecart.gestorAplicacion.merchandise.store import deserializar
+from ecart.gestorAplicacion.transactions.order import Order
 from .entity import Entity
 import ecart.gestorAplicacion.errors as errors
 
@@ -19,17 +20,31 @@ class Admin(Entity):
 
       Admin.current: Admin = self
 
+   def create_order(self, products: dict[str, int], destination_address: Tuple[int ,int]):
+      if self._current_store:
+         self._current_store.create_order(products, destination_address)
+
+      return "Se ha creado la orden de manera exitosa"
+
    def create_product(self, name: str, price: float, quantity: int, description: str):
       if self._current_store:
          self._current_store.create_product(name, price, quantity, description)
 
       return "Se ha creado el producto de manera exitosa"
 
+   def delete_order(self, order: Order):
+      if self._current_store:
+         self._current_store.get_orders().remove(order)
+
+         return "Se ha borrado la orden exitosamente"
+
+      raise errors.ErrorSystemOperation("No una tienda actual")
+
    def delete_product(self, product: Product):
       if self._current_store:
          self._current_store.get_products().remove(product)
 
-         return "Se ha borrado el producto con exito"
+         return "Se ha borrado el producto exitosamente"
 
       raise errors.ErrorSystemOperation("No una tienda actual")
 
@@ -50,6 +65,12 @@ class Admin(Entity):
          return "Se ha borrado el delivery con exito"
 
       raise errors.ErrorSystemOperation("No una tienda actual")
+
+   def get_current_store_orders(self) -> list[Order]:
+      if self._current_store:
+         return self._current_store.get_orders()
+
+      return []
 
    def get_current_store_deliveries(self) -> list[Delivery]:
       if self._current_store:

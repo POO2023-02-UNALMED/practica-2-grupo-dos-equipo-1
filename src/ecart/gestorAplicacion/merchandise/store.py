@@ -4,6 +4,7 @@ from ecart.gestorAplicacion import errors
 from ecart.gestorAplicacion.merchandise.product import Product
 from ecart.gestorAplicacion.merchandise.tags import Tags
 from ecart.gestorAplicacion.entites.entity import Entity
+from ecart.gestorAplicacion.transactions.order import Order
 
 
 def deserializar():
@@ -24,6 +25,7 @@ class Store(Entity):
       self._description = description
       self._tag = tag
       self._balance = 0
+      self._orders: list[Order] = []
 
       from ecart.gestorAplicacion.entites.delivery import Delivery
       self._deliveries: list[Delivery] = []
@@ -51,6 +53,13 @@ class Store(Entity):
          return None
 
       return cls(name, address, tag, description)
+
+   def get_orders(self) -> list[Order]:
+      return self._orders
+
+   def create_order(self, products: dict[str, int], destination_address: Tuple[int ,int]):
+      o = Order(products, destination_address)
+      self._orders.append(o)
 
    def get_products(self) -> list[Product]:
       return self._products

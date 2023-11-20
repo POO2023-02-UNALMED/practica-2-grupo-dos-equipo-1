@@ -1,22 +1,31 @@
+from ecart.gestorAplicacion.merchandise.product import Product
+
+
 class Order:
    instances = []
 
-   def __init__(self, products, destinationAddress, totalPrice, notes: str):
-      self._products = []
+   def __init__(self, products: dict[str, int], destinationAddress):
+      self._products = products
       self._destinationAddress = destinationAddress
-      self._totalPrice = totalPrice
+      self._totalPrice = 0
       self._delivered = False
       self._deliveryPrice = 0
-      self._notes = notes
       self._id = len(Order.instances)
 
       Order.instances.append(self)
 
+   def update_settings(self, products: dict[str, int], destinationAddress):
+      self.setProducts(products)
+      self.setDestinationAddress(destinationAddress)
+
    def getProducts(self):
       return self._products
 
-   def addProduct(self, product):
-      self._products.append(product)
+   def setProducts(self, products):
+      self._products = products
+
+   # def addProduct(self, product):
+   #    self._products.append(product)
 
    def getDestinationAddress(self):
       return self._destinationAddress
