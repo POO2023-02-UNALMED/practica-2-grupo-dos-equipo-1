@@ -33,7 +33,6 @@ class MakeDelivery(Base):
         # Assuming you have a Delivery class with a method like create
         ok, _ = errors.pcall(
             lambda: Delivery.create.values())
-        )
 
         if not ok:
             return

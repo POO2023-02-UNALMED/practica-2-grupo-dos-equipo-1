@@ -1,5 +1,6 @@
 from os import error
 from typing import Optional, Tuple
+from ecart.gestorAplicacion.entites.delivery import Delivery
 
 from ecart.gestorAplicacion.merchandise.store import Store
 from ecart.gestorAplicacion.merchandise.tags import Tags
@@ -16,6 +17,32 @@ class Admin(Entity):
       self._current_store: Store | None = None
 
       Admin.current: Admin = self
+
+   def create_delivery(self, name: str, address: Tuple[int, int]):
+
+      if self._current_store:
+         new_delivery = Delivery.create(name, address, self._current_store)
+         if new_delivery is None:
+            raise errors.ErrorSystemOperation(
+                "Ya existe un delivery on ese nombre")
+
+      return "Se ha creado el delivery correctamente"
+
+   def delete_delivery(self, delivery: Delivery):
+      if self._current_store:
+         self._current_store.set_deliveries(
+             self._current_store.get_deliveries().remove(delivery))
+         Delivery.instances.remove(delivery)
+
+         return "Se ha borrado el delivery con exito"
+
+      raise errors.ErrorSystemOperation("No una tienda actual")
+
+   def get_current_store_deliveries(self) -> list[Delivery]:
+      if self._current_store:
+         return self._current_store.get_deliveries()
+
+      return []
 
    def create_store(self, name: str, address: Tuple[int, int], tag: Tags,
                     description: str):

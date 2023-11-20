@@ -68,7 +68,7 @@ class ChooseStore(Base):
           save_callback=lambda input: errors.pcall(self.save_callback, form, input))
       form.pack(expand=True, fill="both")
 
-   def add_store_to_grid(self, store: Store) -> None:
+   def add_to_grid(self, store: Store) -> None:
       item = tk.Label(bd=5,
                       padx=5,
                       image=self._icon,
@@ -102,10 +102,10 @@ class ChooseStore(Base):
                                                cursor="arrow")
 
       for store in Store.get():
-         self.add_store_to_grid(store)
+         self.add_to_grid(store)
 
       self.add_button = tk.Button(self,
-                                  text="   Create Store   ",
+                                  text="   Crear Tienda   ",
                                   command=self.show_field_frame)
 
       self.add_button.pack(pady=(0, 10))

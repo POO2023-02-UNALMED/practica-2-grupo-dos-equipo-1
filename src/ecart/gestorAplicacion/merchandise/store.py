@@ -23,6 +23,9 @@ class Store(Entity):
       self._description = description
       self._tag = tag
       self._balance = 0
+
+      from ecart.gestorAplicacion.entites.delivery import Delivery
+      self._deliveries: list[Delivery] = []
       # self._products: list[Product] = []
 
       Store.instances.append(self)
@@ -48,6 +51,12 @@ class Store(Entity):
 
       return cls(name, address, tag, description)
 
+   def get_deliveries(self) -> list:
+      return self._deliveries
+
+   def set_deliveries(self, deliveries) -> None:
+      self._deliveries = deliveries
+
    def update_settings(self, name, address, tag, description) -> str:
 
       if not self.is_address_available(address):
@@ -61,6 +70,9 @@ class Store(Entity):
       self.set_description(description)
 
       return "Se actualizó la configuración de la tienda correctamente"
+
+   def add_delivery(self, delivery):
+      self._deliveries.append(delivery)
 
    def serializar(self):
       # Serializar la lista de instancias
@@ -81,58 +93,3 @@ class Store(Entity):
 
    def set_balance(self, balance: int) -> None:
       self._balance = balance
-
-   # def get_products(self):
-   #    return self._products
-   #
-   # def add_product(self, product) -> None:
-   #    self._products.append(product)
-
-   # def createProduct(self, name, price, description, quantity, tag):
-   #    newProduct = Product.create(name, price, description, quantity, tag)
-   #    if newProduct is None:
-   #       return Retval(
-   #           "Failed to create product. The product already exists inside the store",
-   #           False)
-   #
-   #    self.add_product(newProduct)
-   #
-   #    return Retval("Created product successfully!")
-   """
-        class StoreSerializer:
-            @staticmethod
-            def serialize(stores):
-                serialized_stores = []
-                for store in stores:
-                    serialized_store = {
-                        'name': store.get_name(),
-                        'address': store.get_address(),
-                        'tag': store._tag,  # Assuming Tags is serializable
-                        'description': store.get_description(),
-                        'balance': store.get_balance()
-                    }
-                    serialized_stores.append(serialized_store)
-                return pickle.dumps(serialized_stores)
-
-            @staticmethod
-            def deserialize(serialized_data):
-                deserialized_stores = pickle.loads(serialized_data)
-                stores = []
-                for data in deserialized_stores:
-                    name = data['name']
-                    address = data['address']
-                    tag = data['tag']
-                    description = data['description']
-                    balance = data['balance']
-
-                    # Assuming Tags has a method to deserialize itself
-                    deserialized_tag = Tags.deserialize(tag)
-
-                    # Create a new Store instance
-                    store = Store.create(name, address, deserialized_tag, description)
-                    store.set_balance(balance)
-
-                    stores.append(store)
-
-                return stores
-    """
