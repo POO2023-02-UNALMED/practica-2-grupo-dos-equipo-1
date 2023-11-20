@@ -32,5 +32,18 @@ class Delivery(Entity):
 
       return cls(name, address, workplace)
 
+   def update_settings(self, name: str, address: Tuple[int, int]) -> str:
+
+      for delivery in self._workspace.get_deliveries():
+         if delivery.get_name() == name and delivery != self:
+            raise errors.ErrorSystemOperation(
+                f"Ese nombre ya esta en uso por otro delivery"
+            )
+
+      self.set_name(name)
+      self.set_address(address)
+
+      return "Se actualizó la configuración del delivery correctamente"
+
    def plan_route(self):
       pass

@@ -1,6 +1,7 @@
 from typing import Tuple
 import pickle
 from ecart.gestorAplicacion import errors
+from ecart.gestorAplicacion.merchandise.product import Product
 from ecart.gestorAplicacion.merchandise.tags import Tags
 from ecart.gestorAplicacion.entites.entity import Entity
 
@@ -26,7 +27,7 @@ class Store(Entity):
 
       from ecart.gestorAplicacion.entites.delivery import Delivery
       self._deliveries: list[Delivery] = []
-      # self._products: list[Product] = []
+      self._products: list[Product] = []
 
       Store.instances.append(self)
 
@@ -50,6 +51,13 @@ class Store(Entity):
          return None
 
       return cls(name, address, tag, description)
+
+   def get_products(self) -> list[Product]:
+      return self._products
+
+   def create_product(self, name: str, price: float, quantity: int, description: str):
+      p = Product(name, price, quantity, description)
+      self._products.append(p)
 
    def get_deliveries(self) -> list:
       return self._deliveries

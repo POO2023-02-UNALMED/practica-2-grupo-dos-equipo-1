@@ -1,6 +1,7 @@
 from os import error
 from typing import Optional, Tuple
 from ecart.gestorAplicacion.entites.delivery import Delivery
+from ecart.gestorAplicacion.merchandise.product import Product
 
 from ecart.gestorAplicacion.merchandise.store import Store
 from ecart.gestorAplicacion.merchandise.tags import Tags
@@ -17,6 +18,20 @@ class Admin(Entity):
       self._current_store: Store | None = None
 
       Admin.current: Admin = self
+
+   def create_product(self, name: str, price: float, quantity: int, description: str):
+      if self._current_store:
+         self._current_store.create_product(name, price, quantity, description)
+
+      return "Se ha creado el producto de manera exitosa"
+
+   def delete_product(self, product: Product):
+      if self._current_store:
+         self._current_store.get_products().remove(product)
+
+         return "Se ha borrado el producto con exito"
+
+      raise errors.ErrorSystemOperation("No una tienda actual")
 
    def create_delivery(self, name: str, address: Tuple[int, int]):
 
@@ -39,6 +54,12 @@ class Admin(Entity):
    def get_current_store_deliveries(self) -> list[Delivery]:
       if self._current_store:
          return self._current_store.get_deliveries()
+
+      return []
+
+   def get_current_store_products(self) -> list[Product]:
+      if self._current_store:
+         return self._current_store.get_products()
 
       return []
 

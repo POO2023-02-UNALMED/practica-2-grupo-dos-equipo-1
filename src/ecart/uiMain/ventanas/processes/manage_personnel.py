@@ -25,7 +25,7 @@ class ManagePersonnel(Base):
           master, "Administrar Personal",
           "Aqui pueda crear, borrar y actualizar a sus empleados")
 
-   def save_callback(self, form: FieldFrame, entries: dict):
+   def save_callback(self, form: FieldFrame, update: bool, entries: dict):
       form.check_empty_values()
 
       calle = entries["Calle"]
@@ -41,21 +41,28 @@ class ManagePersonnel(Base):
 
       entries.pop("Carrera")
 
-      ok, _ = errors.pcall(
-          lambda: Admin.current.create_delivery(*entries.values()))
+      ok = True
+
+      if update:
+         ok, _ = errors.pcall(lambda: self.current_delivery.update_settings(
+             *entries.values()) if self.current_delivery else None)
+      else:
+         ok, _ = errors.pcall(
+             lambda: Admin.current.create_delivery(*entries.values()))
+
       if not ok: return
+
+      self.current_delivery = None
 
       form.destroy()
       self.setup_ui()
 
    def is_current_delivery(self):
       if not self.current_delivery:
-         MW.show(
-             "e", "Por favor haga click en alguno de los deliveries", self)
+         MW.show("e", "Por favor haga click en alguno de los deliveries", self)
          return False
 
       return True
-
 
    def create_or_update_delivery(self, use_current: bool = False):
       if use_current:
@@ -75,12 +82,12 @@ class ManagePersonnel(Base):
                      str(self.current_delivery.get_address()[1])]]
 
       form = FieldFrame(master=self,
-                        title="Crear Delery",
+                        title="Delery",
                         fields_title="Propiedades",
                         entries_title="Valores",
                         fields=FORM,
                         save_callback=lambda input: errors.pcall(
-                            self.save_callback, form, input))
+                            self.save_callback, form, use_current, input))
       form.pack(expand=True, fill="both")
 
    def delete_delivery(self):
