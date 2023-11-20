@@ -8,6 +8,7 @@ class Product:
       self._name = name
       self._price = price
       self._quantity = quantity
+      self._historic_quantity = quantity
       self._description = description
 
    @classmethod
@@ -21,6 +22,21 @@ class Product:
    @classmethod
    def create(cls, name: str, price: float, quantity: int, description: str):
       return cls(name, price, quantity, description)
+
+   def increase_quantity(self, quantity):
+      if abs(quantity) == quantity:
+         self._historic_quantity += quantity
+
+      if self._quantity + quantity < 0:
+         self._quantity = 0
+      else:
+         self._quantity += quantity
+
+   def set_historic_quantity(self, quantity):
+      self._historic_quantity = quantity
+
+   def get_historic_quantity(self):
+      return self._historic_quantity
 
    def update_settings(self, arr, name, price, quantity, description) -> str:
 

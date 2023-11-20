@@ -4,7 +4,8 @@ from ecart.gestorAplicacion.merchandise.product import Product
 class Order:
    instances = []
 
-   def __init__(self, products: dict[str, int], destinationAddress, origin_address):
+   def __init__(self, products: dict[str, int], destinationAddress,
+                origin_address):
       self._products = products
       self._destinationAddress = destinationAddress
       self._origin_address = origin_address

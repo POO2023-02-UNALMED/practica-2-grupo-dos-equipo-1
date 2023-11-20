@@ -81,18 +81,17 @@ class Delivery(Entity):
             product = origin_store.get_product_by_name(product_name)
             if product:
                total_cost += product.get_price() * quantity
-               product.set_quantity(product.get_quantity() - quantity)
+               product.increase_quantity(-quantity)
 
                if destination_place:
                   arrival_product = destination_place.get_product_by_name(
                       product_name)
                   if arrival_product:
-                     arrival_product.set_quantity(product.get_quantity() +
-                                                  quantity)
+                     arrival_product.increase_quantity(quantity)
                   else:
                      destination_place.create_product(
                          product_name, product.get_price(),
-                         product.get_quantity(), product.get_description())
+                         quantity, product.get_description())
 
       order.setDelivered(True)
 
