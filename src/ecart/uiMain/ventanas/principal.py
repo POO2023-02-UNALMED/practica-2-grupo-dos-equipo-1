@@ -115,6 +115,7 @@ class VentanaPrincipal(tk.Frame):
 
    def setup_lower_zone(self) -> None:
       f = ChooseStore(self.lower_zone)
+      f.setup_ui()
       f.pack(expand=True, fill="both")
 
    def setup_welcome(self) -> None:
@@ -163,6 +164,8 @@ class VentanaPrincipal(tk.Frame):
 
       title.pack(expand=True, fill="both")
       description.pack(expand=True, fill="both")
+
+      f.setup_ui()
       f.pack(expand=True, fill="both")
 
    def setup_menubar(self) -> None:

@@ -88,6 +88,10 @@ class Store(Entity):
 
       return "Se actualizó la configuración de la tienda correctamente"
 
+   @classmethod
+   def get_instances(cls):
+      return cls.instances
+
    def add_delivery(self, delivery):
       self._deliveries.append(delivery)
 

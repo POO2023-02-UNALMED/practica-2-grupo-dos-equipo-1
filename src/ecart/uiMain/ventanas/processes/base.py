@@ -10,8 +10,6 @@ class Base(ABC, tk.Frame):
       self.title = title 
       self.description = description
 
-      self.setup_ui()
-
    @abstractmethod
    def setup_ui(self):
       pass
