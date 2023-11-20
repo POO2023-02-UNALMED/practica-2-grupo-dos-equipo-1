@@ -50,8 +50,12 @@ class ManagePersonnel(Base):
 
    def is_current_delivery(self):
       if not self.current_delivery:
-         return False, MW.show(
+         MW.show(
              "e", "Por favor haga click en alguno de los deliveries", self)
+         return False
+
+      return True
+
 
    def create_or_update_delivery(self, use_current: bool = False):
       if use_current:
@@ -90,8 +94,11 @@ class ManagePersonnel(Base):
              self.current_delivery) if self.current_delivery else None)
          if not ok: return
 
-         self.selected_delivery.config(text=f"Delivery seleccionado: ninguno")
          self.current_delivery = None
+         self.personnel_pseudoframe.destroy()
+         self.header_frame.destroy()
+
+         self.setup_ui()
 
    def add_to_grid(self, delivery: Delivery) -> None:
       item = tk.Label(bd=5,
@@ -133,8 +140,9 @@ class ManagePersonnel(Base):
       admin: Admin = Admin.current
 
       deliveries = admin.get_current_store_deliveries()
-      for delivery in deliveries:
-         self.add_to_grid(delivery)
+      if deliveries is not None:
+         for delivery in deliveries:
+            self.add_to_grid(delivery)
 
       self.selected_delivery = tk.Label(self.header_frame,
                                         text="Delivery seleccionado: ninguno",
