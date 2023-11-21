@@ -14,6 +14,29 @@ from ecart.uiMain.commons import Commons
 from ecart.gestorAplicacion.entites.admin import Admin
 import random
 
+"""
+MakeDelivery Class:
+ 
+La clase MakeDelivery hereda de la clase Base.
+
+La clase tiene un atributo de clase llamado PROFILE_ICON, que representa la ruta de la imagen del ícono de perfil.
+
+El constructor (__init__) inicializa la clase base (Base) con un título y una descripción específicos 
+para esta ventana, y también inicializa la variable current_delivery que se utiliza para realizar entregas.
+
+La clase tiene un método llamado save_callback, que se ejecuta cuando se guarda la información del formulario de entrega.
+
+El método is_current_delivery verifica si hay un delivery seleccionado actualmente.
+
+El método add_to_grid agrega los deliveries a una cuadricula a un área de texto desplazable.
+
+El método setup_ui configura la interfaz de usuario de la ventana, mostrando deliveries disponibles y permitiendo
+asignar órdenes a esos deliveries.
+
+
+
+"""
+
 
 class MakeDelivery(Base):
     PROFILE_ICON = Utils.get_file("assets", "profile.png")

@@ -5,6 +5,21 @@ from ecart.uiMain.helpers.scrollable_text import ScrollableText
 from ecart.uiMain.helpers.msgbox_wrapper import MsgboxWrapper as MW
 from ecart.gestorAplicacion.entites.admin import Admin
 
+"""
+Desde el constructor de la clase (__init__) se llama al constructor de la clase base (super().__init__) 
+para inicializar la ventana con un título y una descripción específicos.
+
+La clase tiene un método llamado crear_grafica, que utiliza la biblioteca matplotlib para crear una gráfica 
+de la cantidad histórica versus las ventas de productos en una tienda.
+
+El método setup_ui configura la interfaz de usuario de la ventana. Se crea un widget de texto desplazable (ScrollableText)
+y se agrega un botón ("Mostrar Gráfica").
+
+Cuando se hace clic en el botón, se llama al método crear_grafica para generar y mostrar la gráfica.
+
+
+"""
+
 
 class AnalysePerformance(Base):
 
