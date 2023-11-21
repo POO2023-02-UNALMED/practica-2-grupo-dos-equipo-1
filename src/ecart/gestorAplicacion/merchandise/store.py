@@ -81,20 +81,6 @@ class Store(Entity):
     def set_deliveries(self, deliveries) -> None:
         self._deliveries = deliveries
 
-    def get_deliveries_by_name(self):
-        for name in self._deliveries:
-            if name.get_name() == name:
-                return product
-
-        return None
-
-    def get_deliveries_by_address(self):
-        for name in self._deliveries:
-            if name.get_address() == name:
-                return product
-
-        return None
-
     def update_settings(self, name, address, tag, description) -> str:
 
         if not self.is_address_available(address):
