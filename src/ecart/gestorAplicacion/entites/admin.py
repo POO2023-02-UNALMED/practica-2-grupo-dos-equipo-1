@@ -9,6 +9,23 @@ from ecart.gestorAplicacion.transactions.order import Order
 from .entity import Entity
 import ecart.gestorAplicacion.errors as errors
 
+"""
+Admin hereda de la clase llamada Entity. 
+La clase Admin representa un administrador en el sistema de esta aplicacion:
+
+Metodo __init__ que recibe dos parámetros: name y address.
+
+Métodos para Manipulación de Productos (create_product, delete_product)
+
+Métodos para Manipulación de Deliveries (create_delivery, delete_delivery)
+
+Aunque estos metodos sean parecidos sus funcionalidades son completamente diferentes
+
+Método para Crear una Nueva Tienda (create_store)
+
+Métodos para Configuración de Tienda Actual (set_current_store, get_current_store):
+"""
+
 
 class Admin(Entity):
 

@@ -6,7 +6,47 @@ from ecart.gestorAplicacion.merchandise.tags import Tags
 from ecart.gestorAplicacion.entites.entity import Entity
 from ecart.gestorAplicacion.transactions.order import Order
 
+"""
+Store esta entre las clase mas importante para la aplicacion puesto que en ella se 
+encuentran los delivery, order, product etc
 
+Atributo de Clase instances:
+Es una lista que almacena todas las instancias de la clase Store.
+
+
+Al heredar de Entity tambien tendra los mismo parametro de entrada
+Método __init__:
+Es el método del constructor que se llama cuando se crea una instancia de la clase Store.
+Recibe cinco parámetros: 
+name (nombre de la tienda), 
+address (dirección de la tienda), 
+tag (etiqueta de la tienda), 
+description (descripción de la tienda).
+
+
+Los metodos find en las diferentes clases tienen como objetivo la no repeticion de parametros
+Método de Clase find:
+Recibe el nombre de una tienda (name).
+Busca una tienda por su nombre en la lista de instancias y retorna la primera tienda encontrada, o None si no se encuentra ninguna.
+
+
+Método de Clase create:
+Crea y retorna una nueva instancia de Store
+
+
+Método get_order_by_id:
+
+Recibe un ID de orden (id) y retorna la orden correspondiente si existe, de lo contrario, lanza una excepción.
+
+
+Esta clase cuenta con una amplia variedad de metodo de obtencion y configurarcion de atributos,
+es decir, metodos de getters y setters a los distintos atributos, como por ejemplo,
+product, orders, deliveries entre otros
+
+
+Tambien cuenta con el metodo update_settings:
+Actualiza la configuración de la tienda con nuevos valores para el nombre, dirección, etiqueta y descripción.
+"""
 class Store(Entity):
     instances = []
 
