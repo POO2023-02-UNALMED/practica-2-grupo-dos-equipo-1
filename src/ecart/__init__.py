@@ -16,6 +16,7 @@ def cerrar_aplicacion(root):
 
 
 def main() -> None:
+
     apertura = open('Store', 'rb')
     pruebaa = pickle.load(apertura)
     apertura.close()
