@@ -1,7 +1,9 @@
 import pickle
 from ecart.gestorAplicacion.merchandise.store import Store
 
-file = "store.pkl"
+file = "src/store.pkl"
+
+
 class StoreSerializer:
     @staticmethod
     def serialize(store):
@@ -9,10 +11,9 @@ class StoreSerializer:
         pickle.dump(store, picklefile)
         picklefile.close()
 
-
     @staticmethod
     def deserialize():
-        picklefile = open("store.pkl", "rb")
+        picklefile = open(file, "rb")
 
         Store.instances = pickle.load(picklefile)
 
