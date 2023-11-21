@@ -7,6 +7,7 @@ class ErrorAplicacion(Exception):
       super().__init__(f"Error ({kind}):\n\n\n{msg}")
 
 
+
 def display(error: Optional[Union[Type[Exception], Exception]] = None) -> None:
    MW.show("e", str(error))
 
