@@ -14,6 +14,8 @@ def cerrar_aplicacion(root):
 
 def main() -> None:
 
+   StoreSerializer.deserialize()
+
    ROOT = Tk()
    ROOT.geometry("1200x720")
    a = Admin("defualt", (0, 0))

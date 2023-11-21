@@ -8,8 +8,7 @@ class Commons():
    DESC_FONT = ("Courier", 14, "bold")
 
    AUTHORS = {
-       "angel": ("Angell Pimienta", "3", "Soy Angell un pequeño pero no menos importante desarrollador, estoy en mi 3 "
-                                         "semestre de universidad, con muchas ganas de aprender y explorar este nuevo "
+       "angel": ("Angell Pimienta", "3", "Soy Angell un, desarrollador, con muchas ganas de aprender y explorar este nuevo"
                                          "mundo, sin dejar de lado el verdadero!"),
        "sebastian": ("Sebastian", "3", "Estudiante de Ingenieria de Sistemas apasionado por la programación"),
        "santiago": ("Santiago", "3", "Desarrollador de software apasionado")

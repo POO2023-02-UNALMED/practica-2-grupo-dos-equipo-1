@@ -5,7 +5,6 @@ from ecart.uiMain.utils import Utils
 from .principal import VentanaPrincipal
 from ecart.uiMain.commons import Commons
 from ecart.uiMain.helpers.msgbox_wrapper import MsgboxWrapper as MB
-from ecart.baseDatos.serializador import StoreSerializer
 
 """
 Esta la ventana de inicio la cual cuenta con:
@@ -259,7 +258,6 @@ class VentanaInicio(tk.Frame):
         def ingresar() -> None:
             self.master.config(menu=tk.Menu())  # destroy master menu
             self.destroy()  # destroy current frame
-            StoreSerializer.deserialize()
             VentanaPrincipal.start(self.master)
 
         self.project_ingresar_button = tk.Button(self.p4,
