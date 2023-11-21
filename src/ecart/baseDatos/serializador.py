@@ -4,48 +4,29 @@ import os
 
 
 class StoreSerializer:
-    file = "Store"
+   file = "stores.pkl"
 
-    @staticmethod
-    def serialize(store):
-        if os.path.exists(StoreSerializer.file):
-            # El archivo ya existe, cargar datos actuales
-            with open(StoreSerializer.file, "rb") as existing_file:
-                existing_data = pickle.load(existing_file)
-            store.update(existing_data)
+   @staticmethod
+   def _assert_existance():
+      if not os.path.exists(StoreSerializer.file):
+         with open(StoreSerializer.file, 'w'):
+            pass
 
-        # Guardar datos actualizados
-        with open(StoreSerializer.file, "wb") as picklefile:
-            pickle.dump(store, picklefile)
+   @staticmethod
+   def serialize():
 
-    @staticmethod
-    def deserialize():
-        if os.path.exists(StoreSerializer.file):
-            with open(StoreSerializer.file, "rb") as picklefile:
-                Store.instances = pickle.load(picklefile)
-                print(type(Store.instances))
-        else:
-            print("El archivo no existe.")
+      StoreSerializer._assert_existance()
 
+      with open(StoreSerializer.file, "wb") as picklefile:
+         pickle.dump(Store.instances, picklefile)
 
-"""
- file = "src/store.pkl"
+   @staticmethod
+   def deserialize():
 
+      StoreSerializer._assert_existance()
 
-class StoreSerializer:
-    @staticmethod
-    def serialize(store):
-        picklefile = open(file, "wb")
-        pickle.dump(store, picklefile)
-        picklefile.close()
-
-    @staticmethod
-    def deserialize():
-        picklefile = open(file, "rb")
-
-        Store.instances = pickle.load(picklefile)
-
-        picklefile.close()
-
-        print(type(Store.instances))
-"""
+      try:
+         with open(StoreSerializer.file, "rb") as picklefile:
+            Store.instances = pickle.load(picklefile)
+      except EOFError:
+         pass

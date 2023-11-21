@@ -116,7 +116,7 @@ class VentanaPrincipal(tk.Frame):
          '''
 
     def regresar_inicio(self) -> None:
-        StoreSerializer.serialize(Store.instances)
+        StoreSerializer.serialize()
         should_return = MW.show("ay",
                                 "Estas seguro que deseas regresar al inicio?",
                                 self)
