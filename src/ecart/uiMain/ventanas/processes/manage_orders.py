@@ -41,8 +41,8 @@ actualizar o borrar órdenes.
 
 
 class ManageOrders(Base):
-    BASKET_ICON = Utils.get_file("assets", "basket.png")
-    BOXES_ICON = Utils.get_file("assets", "boxes.png")
+    BASKET_ICON = Utils.get_image_file("assets", "basket.png")
+    BOXES_ICON = Utils.get_image_file("assets", "boxes.png")
 
     def __init__(self, master: tk.Misc) -> None:
 

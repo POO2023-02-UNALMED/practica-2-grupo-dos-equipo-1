@@ -42,9 +42,9 @@ El método setup_order_ui configura la interfaz de usuario para la gestión de �
 
 
 class ManageSuppliers(Base):
-    BASKET_ICON = Utils.get_file("assets", "basket.png")
-    BOXES_ICON = Utils.get_file("assets", "boxes.png")
-    STORE_ICON = Utils.get_file("assets", "store.png")
+    BASKET_ICON = Utils.get_image_file("assets", "basket.png")
+    BOXES_ICON = Utils.get_image_file("assets", "boxes.png")
+    STORE_ICON = Utils.get_image_file("assets", "store.png")
 
     def __init__(self, master: tk.Misc) -> None:
 

@@ -36,7 +36,7 @@ y permitiendo crear, actualizar o borrar entregas.
 
 
 class ManagePersonnel(Base):
-    PROFILE_ICON = Utils.get_file("assets", "profile.png")
+    PROFILE_ICON = Utils.get_image_file("assets", "profile.png")
 
     def __init__(self, master: tk.Misc) -> None:
 

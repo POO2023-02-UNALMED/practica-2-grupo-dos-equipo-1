@@ -40,7 +40,7 @@ mostrando las tiendas existentes y permitiendo la creación de nuevas tiendas.
 
 
 class ChooseStore(Base):
-    STORE_ICON = Utils.get_file("assets", "store.png")
+    STORE_ICON = Utils.get_image_file("assets", "store.png")
     FORM = [
         "Nombre de la tienda", "Calle", "Carrera",
         ["Tag", Tags.get_list(), True], "Descripcion\n"

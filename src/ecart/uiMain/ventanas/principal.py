@@ -73,7 +73,7 @@ Define opciones de menú, como "Salir", "Escoger Tienda", "Administrar Inventari
 
 
 class VentanaPrincipal(tk.Frame):
-    STORE_ICON = Utils.get_file("assets", "store.png")
+    STORE_ICON = Utils.get_image_file("assets", "store.png")
 
     def __init__(self, master: tk.Tk, *args, **kwargs) -> None:
 

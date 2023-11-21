@@ -1,10 +1,11 @@
 import pickle
 from ecart.gestorAplicacion.merchandise.store import Store
+from ecart.uiMain.utils import Utils
 import os
 
 
 class StoreSerializer:
-   file = "stores.pkl"
+   file = Utils.get_file("stores.pkl")
 
    @staticmethod
    def _assert_existance():

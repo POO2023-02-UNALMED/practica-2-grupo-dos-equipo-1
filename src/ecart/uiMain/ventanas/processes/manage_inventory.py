@@ -40,7 +40,7 @@ actualizar o borrar productos.
 
 
 class ManageInventory(Base):
-    FRUIT_ICON = Utils.get_file("assets", "fruit.png")
+    FRUIT_ICON = Utils.get_image_file("assets", "fruit.png")
 
     def __init__(self, master: tk.Misc) -> None:
 
