@@ -124,24 +124,3 @@ class Store(Entity):
 
     def set_balance(self, balance: int) -> None:
         self._balance = balance
-
-
-"""
-    @classmethod
-    def deserializar(cls):
-        try:
-            with open('archivo_serializado.pkl', 'rb') as archivo:
-                cls.instances = pickle.load(archivo)
-        except FileNotFoundError:
-            # Si el archivo no existe, simplemente crea una instancia vacía
-            cls.instances = []
-
-    def serializar(self):
-        # Serializar la lista de instancias
-        with open('archivo_serializado.pkl', 'wb') as archivo:
-            pickle.dump(Store.instances, archivo)
-
-    @staticmethod
-    def get_instances():
-        return Store.instances
-"""

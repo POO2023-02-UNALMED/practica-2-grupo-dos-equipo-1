@@ -19,7 +19,7 @@ class Order:
 
    def update_settings(self, products: dict[str, int], destinationAddress):
       self.setProducts(products)
-      self.setDestinationAddress(destinationAddress)
+      self.setDestinationAddress(destinationAddress)        
 
    def get_origin_address(self):
       return self._origin_address

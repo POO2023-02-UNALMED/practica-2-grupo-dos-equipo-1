@@ -17,7 +17,7 @@ from ecart.uiMain.ventanas.processes.manage_orders import ManageOrders
 from ecart.uiMain.ventanas.processes.manage_personnel import ManagePersonnel
 from ecart.uiMain.ventanas.processes.manage_suppliers import ManageSuppliers
 from ecart.uiMain.ventanas.processes.update_settings import UpdateSettings
-
+from ecart.baseDatos.serializador import StoreSerializer
 
 class VentanaPrincipal(tk.Frame):
 
@@ -64,20 +64,22 @@ class VentanaPrincipal(tk.Frame):
          '''
 
    def regresar_inicio(self) -> None:
-
+      StoreSerializer.serialize(Store.instances)
       should_return = MW.show("ay",
                               "Estas seguro que deseas regresar al inicio?",
                               self)
       if should_return:
-
          self.master.config(menu=tk.Menu())  # destroy master menu
          self.destroy()  # destroy current frame
+         
 
          # avoid circular imports
          from ecart.uiMain.ventanas.inicio import VentanaInicio
          VentanaInicio(self.master, bg="lightblue").pack(fill="both",
                                                          side="top",
                                                          expand=True)
+         
+         
 
    def show_authors(self) -> None:
 
