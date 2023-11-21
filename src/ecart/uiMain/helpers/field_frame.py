@@ -7,7 +7,29 @@ from ecart.gestorAplicacion import errors
 
 from ecart.uiMain.commons import Commons
 
+"""
+Se deberá implementar un componente FieldFrame que herede de Frame para visualizar y gestionar listas de
+atributo-valor. La interface pública deberá ser como mínimo:
+class FieldFrame(Frame):
 
+    crea un nuevo objeto de tipo FieldFrame
+    @arg tituloCriterios titulo para la columna "Criterio"
+    @arg criterios array con los nombres de los criterios
+    @arg tituloValores titulo para la columna "valor"
+    @arg valores array con los valores iniciales; Si ‘None’, no hay valores iniciales
+    @arg habilitado array con los campos no-editables por el usuario; Si ‘None’, todos son editables
+
+def init (tituloCriterios, criterios, tituloValores, valores, habilitado):
+...
+/**
+@arg criterio el criterio cuyo valor se quiere obtener
+@return el valor del criterio cuyo nombre es 'criterio'
+*/
+Def getValue(self, criterio):
+
+
+
+"""
 class FieldFrame(tk.Frame):
    """ Example call:
       

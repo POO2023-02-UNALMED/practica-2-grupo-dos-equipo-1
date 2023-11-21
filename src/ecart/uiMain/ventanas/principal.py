@@ -19,6 +19,58 @@ from ecart.uiMain.ventanas.processes.manage_suppliers import ManageSuppliers
 from ecart.uiMain.ventanas.processes.update_settings import UpdateSettings
 from ecart.baseDatos.serializador import StoreSerializer
 
+"""
+De la misma forma como lo hace la ventana de inicio, la ventana principal
+Configura (master) y establece el título de la ventana.
+
+
+start (Método Estático):
+Método estático para crear una instancia de VentanaPrincipal y empaquetarla en la ventana principal (root).
+
+
+configure_process_frame (Método):
+Configura un nuevo marco para los procesos de la aplicación, 
+destruyendo el marco anterior si es necesario.
+
+
+regresar_inicio (Método):
+Serializa las tiendas antes de regresar a la ventana de inicio.
+Muestra un cuadro de diálogo de confirmación antes de regresar a la ventana de inicio.
+
+
+Implementacion requerida en el boton de ayuda, acerca de
+show_authors (Método):
+Muestra un cuadro de diálogo con información sobre los autores de la aplicación.
+
+
+De la misma manera que el boton de ayuda
+show_description (Método):
+Muestra un cuadro de diálogo con la descripción general de la aplicación ECart.
+
+
+
+setup_upper_zone (Método):
+Configura la zona superior de la interfaz que contiene el banner de bienvenida.
+
+
+setup_lower_zone (Método):
+Configura la zona inferior de la interfaz, que inicialmente contiene la elección de tienda.
+
+
+setup_welcome (Método):
+Con este metodo se configura la estructura general de la interfaz, incluyendo las zonas superior e inferior
+para darle un aspecto amigable a la aplicacion
+
+
+pick_process (Método):
+Configura la interfaz para mostrar un proceso específico (por ejemplo, administrar inventario, hacer entrega) y la información asociada a ese proceso.
+
+
+setup_menubar (Método):
+Configura la barra de menú con opciones como "Archivo", "Procesos y Consultas", y "Ayuda".
+Define opciones de menú, como "Salir", "Escoger Tienda", "Administrar Inventario", etc.
+"""
+
 
 class VentanaPrincipal(tk.Frame):
     STORE_ICON = Utils.get_file("assets", "store.png")

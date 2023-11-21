@@ -7,6 +7,52 @@ from ecart.uiMain.commons import Commons
 from ecart.uiMain.helpers.msgbox_wrapper import MsgboxWrapper as MB
 from ecart.baseDatos.serializador import StoreSerializer
 
+"""
+Esta la ventana de inicio la cual cuenta con:
+
+
+Inicialización (__init__):
+Configura la ventana principal (master) y establece el título de la ventana.
+Llama a varios métodos para configurar la barra de menú, el área derecha e izquierda de la ventana.
+
+
+start (Método Estático):
+Método estático para crear una instancia de VentanaInicio y empaquetarla en la ventana principal (root).
+
+
+show_description (Método):
+Muestra la descripción del sistema en el área de la ventana, ocultando otras secciones.
+Permite al usuario regresar a la visualización de imágenes del proyecto.
+
+
+exit_program (Método):
+Muestra un cuadro de diálogo de confirmación y sale de la aplicación si el usuario confirma.
+
+
+setup_menubar (Método):
+Configura la barra de menú en la parte superior de la ventana con opciones como "Inicio", "Salir" y "Descripción"
+
+
+setup_right_frameholder (Método):
+Configura el área derecha de la ventana, que contiene información sobre los autores del proyecto y sus imágenes.
+ademas de permitirle al usuario navegar entre las distintas biografías de los autores
+
+
+setup_left_frameholder (Método):
+Configura el área izquierda de la ventana, que contiene un mensaje de bienvenida
+y un área para mostrar imágenes del proyecto.
+
+
+configure_project_images (Método):
+Configura un área para mostrar imágenes del proyecto en la parte inferior izquierda de la ventana.
+
+Permite al usuario navegar entre las imágenes del proyecto al pasar el ratón 
+sobre el área y hacer clic en el botón "Ingresar".
+
+
+
+"""
+
 
 class VentanaInicio(tk.Frame):
 
